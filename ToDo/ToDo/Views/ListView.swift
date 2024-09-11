@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ListView: View {
     
-    @State private var textInput: String = "Task ❔"
     @State private var newItem :String = ""
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
@@ -20,11 +19,11 @@ struct ListView: View {
         ItemModel(title: " Shopping  🛒", isCompleted: false)
     ]
     
+    let navigationTitle: String
+    
     var body: some View {
-        
-        List{
-            
-            ForEach(items){ item in
+        List {
+            ForEach(items) { item in
                 ListRowView(item: item)
                     .onTapGesture {
                         markAsCompleted(item: item)
@@ -34,18 +33,25 @@ struct ListView: View {
                 deleteItem(indexSet: indexSet)})
         }
         .listStyle(PlainListStyle())
-        .navigationTitle("What I Need To Do  🗒️")
-        .navigationBarItems(trailing: Button(" ", systemImage: "plus",
-                                                  action: {
-            isPresented = true
-            newItem = ""
-        }
-                                            )
-            .font(.system(size: 15,weight: .bold, design: .default))
-            .sheet(isPresented: $isPresented, content: {
-                addNewItem(isPresented: $isPresented, newItem: $newItem, items: $items )
+        .navigationTitle(navigationTitle)
+        .navigationBarItems(
+            trailing: 
+                Button(
+                    " ",
+                    systemImage: "plus",
+                    action: {
+                        isPresented = true
+                        newItem = ""
+                    }
+                )
+                .font(.system(size: 15,weight: .bold, design: .default))
+        )
+        .sheet(
+            isPresented: $isPresented,
+            content: {
+                AddNewItemView(isPresented: $isPresented, newItem: $newItem, items: $items)
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
-            })
+            }
         )
     }
     
@@ -64,7 +70,7 @@ struct ListView: View {
 
 #Preview {
     NavigationView{
-        ListView()
+        ListView(navigationTitle: "Title")
     }
 }
 
