@@ -13,11 +13,14 @@ struct ListView: View {
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
     @State var items: [ItemModel] = [
-        ItemModel(title: "Homework 📒 ", isCompleted: false),
-        ItemModel(title: "Cleaning 🧹", isCompleted: false),
-        ItemModel(title: " Feed a cat  🐈‍⬛", isCompleted: true),
-        ItemModel(title: " Shopping  🛒", isCompleted: false)
+      /*  ItemModel(title: "Apple 🍎", isCompleted: false),
+        ItemModel(title: "Garlic 🧄", isCompleted: false),
+        ItemModel(title: " Cat's food 🐈‍⬛", isCompleted: true),
+        ItemModel(title: "Battery 🔋", isCompleted: false),
+        ItemModel(title: "Bread 🥖", isCompleted: false)
+       */
     ]
+    
     
     let navigationTitle: String
     
@@ -29,6 +32,7 @@ struct ListView: View {
                         markAsCompleted(item: item)
                     }
             }
+
             .onDelete(perform: { indexSet in
                 deleteItem(indexSet: indexSet)})
         }
@@ -70,6 +74,7 @@ struct ListView: View {
 
 #Preview {
     NavigationView{
+       
         ListView(navigationTitle: "Title")
     }
 }
