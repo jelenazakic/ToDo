@@ -76,6 +76,8 @@ struct ToDoHomePage: View {
     }
 }
 
+//Vasilijev prvi komit
+
 #Preview {
     ToDoHomePage()
 }
