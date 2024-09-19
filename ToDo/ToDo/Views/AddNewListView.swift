@@ -13,7 +13,8 @@ struct AddNewListView: View {
     
     @State var newNameList: String = ""
     @State var lists: [ListModel] = []
-    @Binding var showView: Bool
+    @Binding var showView: Bool // TODO: ovo nije potrebno
+    // TODO: već postoji built-in properti (proguglaj)
     
     //  MARK: - Lifecycle
     
@@ -51,7 +52,7 @@ struct AddNewListView: View {
         lists.append(newList)
         newNameList.removeAll()
         
-        showView = false
+        showView = false // TODO: ovde pozvati built-in property umesto nas
     }
 }
 #Preview {
