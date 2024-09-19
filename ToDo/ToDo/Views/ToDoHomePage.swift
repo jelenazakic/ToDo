@@ -5,6 +5,7 @@
 //  Created by Jelena Zakic on 10.9.24..
 //
 
+// commit od strahinja - obrisati kasnije
 import SwiftUI
 
 struct ToDoHomePage: View {
@@ -120,6 +121,8 @@ struct ToDoHomePage: View {
    
 }
     
+
+//Vasilijev prvi komit
 
 #Preview {
     ToDoHomePage(checkListCountValue: 0)
