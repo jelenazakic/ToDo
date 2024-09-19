@@ -12,16 +12,8 @@ struct ListView: View {
     @State private var newItem :String = ""
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
-    @State var items: [ItemModel] = [
-      /*  ItemModel(title: "Apple 🍎", isCompleted: false),
-        ItemModel(title: "Garlic 🧄", isCompleted: false),
-        ItemModel(title: " Cat's food 🐈‍⬛", isCompleted: true),
-        ItemModel(title: "Battery 🔋", isCompleted: false),
-        ItemModel(title: "Bread 🥖", isCompleted: false)
-       */
-    ]
-    
-    
+    @State var items: [ItemModel] = []
+   
     let navigationTitle: String
     
     var body: some View {
@@ -29,13 +21,15 @@ struct ListView: View {
             ForEach(items) { item in
                 ListRowView(item: item)
                     .onTapGesture {
-                        markAsCompleted(item: item)
+                
+                         markAsCompleted(item: item)
                     }
             }
-
+            
             .onDelete(perform: { indexSet in
                 deleteItem(indexSet: indexSet)})
         }
+        
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
         .navigationBarItems(
@@ -69,7 +63,7 @@ struct ListView: View {
         }
     }
     
-    
+   
 }
 
 #Preview {
