@@ -14,7 +14,7 @@ struct ToDoHomePage: View {
     
     @State private var searchTerm = ""
     @State private var showCreateNewListSheet: Bool = false
-    @State var checkListCountValue: Int
+    @State var checkListCountValue: Int = 0
     
     var lists: [ListModel] = [
         ListModel(name: "Grocery Shopping",
