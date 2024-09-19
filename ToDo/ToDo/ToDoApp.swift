@@ -12,7 +12,7 @@ struct ToDoApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-                ListView(navigationTitle: "todo")
+                MainListView(navigationTitle: "todo")
             }
         }
     }

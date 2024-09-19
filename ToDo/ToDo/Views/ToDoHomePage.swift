@@ -57,7 +57,7 @@ struct ToDoHomePage: View {
                 //Color.blue.ignoresSafeArea()
                 List(filterList) { list in
                     NavigationLink {
-                        ListView (items: list.tasks, 
+                        MainListView (items: list.tasks, 
                                   navigationTitle: list.name)
                     }
                 label: {
