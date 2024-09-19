@@ -11,9 +11,9 @@ struct AddNewListView: View {
     
     //  MARK: - Properties
     
-    @Binding var newNameList: String
+    @State var newNameList: String = ""
     @State var lists: [ListModel] = []
-    @State var showView: Bool
+    @Binding var showView: Bool
     
     //  MARK: - Lifecycle
     
@@ -55,19 +55,17 @@ struct AddNewListView: View {
     }
 }
 #Preview {
-    AddNewListView(newNameList: .constant(""),
-                   lists:
-                    [
-                        ListModel(name: "Sample List",
-                                  tasks:
-                                    [
-                                        ItemModel(title: "Sample Task 1", isCompleted: false),
-                                        ItemModel(title: "Sample Task 2", isCompleted: true)
-                                    ]
-                                 )
-                    ],
-                   showView: false)
-    
-    
+    AddNewListView(
+        lists: [
+            ListModel(
+                name: "Sample List",
+                tasks: [
+                    ItemModel(title: "Sample Task 1", isCompleted: false),
+                    ItemModel(title: "Sample Task 2", isCompleted: true)
+                ]
+            )
+        ],
+        showView: .constant(false)
+    )
 }
 

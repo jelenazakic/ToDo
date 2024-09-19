@@ -87,7 +87,6 @@ struct ToDoHomePage: View {
                 isPresented: $showCreateNewListSheet,
                 content: {
                     AddNewListView(
-                        newNameList: .constant(" "),
                         lists: [
                             ListModel(
                                 name: "New name",
@@ -98,7 +97,7 @@ struct ToDoHomePage: View {
                                 ]
                             )
                         ],
-                        showView: false
+                        showView: $showCreateNewListSheet
                     )
                 })
             .navigationBarItems(
