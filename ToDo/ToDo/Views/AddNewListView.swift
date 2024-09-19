@@ -8,46 +8,66 @@
 import SwiftUI
 
 struct AddNewListView: View {
+    
+    //  MARK: - Properties
+    
     @Binding var newNameList: String
     @State var lists: [ListModel] = []
-    @State  var isPre: Bool
+    @State var showView: Bool
+    
+    //  MARK: - Lifecycle
     
     var body: some View {
-        
-        VStack{
-            
-            TextField("Enter New List", text: $newNameList)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .padding(20)
-            
-            Button("Save"){
-                lists.append(ListModel(name: newNameList, tasks: [] ))
-                newNameList = " "
-                isPre = true
-                
-            }
-            .frame(width: 100, height: 20)
-            .padding(5)
-            .font(.system(size: 15,weight: .bold, design: .default))
-            .cornerRadius(20)
+        VStack {
+            newListTextField
+            saveNewListButton
         }
     }
     
+    //  MARK: - Views
+    
+    private var newListTextField: some View {
+        TextField("Enter New List", text: $newNameList)
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .padding(20)
+    }
+    
+    private var saveNewListButton: some View {
+        Button {
+            onSaveNewListButtonTap()
+        } label: {
+            Text("Save")
+        }
+        .frame(width: 100, height: 20)
+        .padding(5)
+        .font(.system(size: 15,weight: .bold, design: .default))
+        .cornerRadius(20)
+    }
+    
+    //  MARK: - Utility
+    
+    private func onSaveNewListButtonTap() {
+        let newList = ListModel(name: newNameList, tasks: [] )
+        lists.append(newList)
+        newNameList.removeAll()
+        
+        showView = false
+    }
 }
 #Preview {
     AddNewListView(newNameList: .constant(""),
                    lists:
                     [
-                    ListModel(name: "Sample List",
-                              tasks:
-                               [
-                               ItemModel(title: "Sample Task 1", isCompleted: false),
-                            ItemModel(title: "Sample Task 2", isCompleted: true)
+                        ListModel(name: "Sample List",
+                                  tasks:
+                                    [
+                                        ItemModel(title: "Sample Task 1", isCompleted: false),
+                                        ItemModel(title: "Sample Task 2", isCompleted: true)
                                     ]
                                  )
                     ],
-                   isPre: false)
-                         
+                   showView: false)
+    
     
 }
 
