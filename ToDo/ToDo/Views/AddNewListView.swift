@@ -1,32 +1,22 @@
-//
-//  AddNewListView.swift
-//  ToDo
-//
-//  Created by Jelena Zakic on 17.9.24..
-//
-
 import SwiftUI
 
 struct AddNewListView: View {
     
-    //  MARK: - Properties
-    
-    @State var newNameList: String = ""
-    @State var lists: [ListModel] = []
-    @Binding var showView: Bool // TODO: ovo nije potrebno
-    // TODO: već postoji built-in properti (proguglaj)
-    
-    //  MARK: - Lifecycle
-    
+    // MARK: - Properties
+    @Binding var newNameList: String
+    @Binding var lists: [ListModel]
+    @Binding var isPresented: Bool 
+
+    // MARK: - Lifecycle
     var body: some View {
         VStack {
             newListTextField
             saveNewListButton
         }
+        .padding()
     }
     
-    //  MARK: - Views
-    
+    // MARK: - Views
     private var newListTextField: some View {
         TextField("Enter New List", text: $newNameList)
             .textFieldStyle(RoundedBorderTextFieldStyle())
@@ -34,39 +24,31 @@ struct AddNewListView: View {
     }
     
     private var saveNewListButton: some View {
-        Button {
-            onSaveNewListButtonTap()
-        } label: {
+        Button(action: onSaveNewListButtonTap) {
             Text("Save")
+                .frame(width: 100, height: 20)
+                .padding(5)
+                .font(.system(size: 15, weight: .bold))
+                .foregroundColor(.white)
+                .background(Color.blue)
+                .cornerRadius(20)
         }
-        .frame(width: 100, height: 20)
-        .padding(5)
-        .font(.system(size: 15,weight: .bold, design: .default))
-        .cornerRadius(20)
     }
     
-    //  MARK: - Utility
-    
+    // MARK: - Utility
     private func onSaveNewListButtonTap() {
-        let newList = ListModel(name: newNameList, tasks: [] )
+       
+    
+        let newList = ListModel(name: newNameList, tasks: [])
         lists.append(newList)
-        newNameList.removeAll()
-        
-        showView = false // TODO: ovde pozvati built-in property umesto nas
+        newNameList = ""
+        isPresented = false
     }
 }
+
 #Preview {
-    AddNewListView(
-        lists: [
-            ListModel(
-                name: "Sample List",
-                tasks: [
-                    ItemModel(title: "Sample Task 1", isCompleted: false),
-                    ItemModel(title: "Sample Task 2", isCompleted: true)
-                ]
-            )
-        ],
-        showView: .constant(false)
-    )
+    AddNewListView(newNameList: .constant(""),
+                   lists: .constant([]),
+                   isPresented: .constant(false))
 }
 
