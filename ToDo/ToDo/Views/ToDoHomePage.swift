@@ -17,6 +17,7 @@ struct ToDoHomePage: View {
     @State private var newList = ListModel(name: "", tasks: [])
     @State var items: [ItemModel] = []
     @State var newNameList: String = " "
+    @State private var isDarkMode = false
     
     @State var lists: [ListModel] = [
         ListModel(name: "Grocery Shopping",
@@ -58,24 +59,28 @@ struct ToDoHomePage: View {
         }
     }
     var filteredLists: [ListModel] {
-           guard !searchTerm.isEmpty else { return lists }
-           return lists.filter {
-               $0.name.localizedCaseInsensitiveContains(searchTerm)
-           }
-       }
+        guard !searchTerm.isEmpty else { return lists }
+        return lists.filter {
+            $0.name.localizedCaseInsensitiveContains(searchTerm)
+        }
+    }
     
     //  MARK: - Properties
     
     var body: some View {
+        VStack{
             NavigationStack {
                 List(filteredLists) { list in
                     NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)) {
                         listRow(for: list)
                     }
+                    
                 }
+                
                 .sheet(isPresented: $isPresented) {
                     AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresented)
                 }
+                .foregroundColor(isDarkMode ? .white : .black)
                 .navigationBarItems(trailing: addButton)
                 .listRowBackground(Color.blushPlum)
                 .listStyle(PlainListStyle())
@@ -83,7 +88,16 @@ struct ToDoHomePage: View {
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
         }
-        
+        Toggle("Dark Mode", isOn: $isDarkMode)
+                        .padding()
+                    
+                    if isDarkMode {
+                       
+                    } else {
+                        
+                    }
+    }
+       
         private func listRow(for list: ListModel) -> some View {
             HStack {
                 Image(systemName: "checklist")
@@ -98,6 +112,7 @@ struct ToDoHomePage: View {
             }
             .padding(.vertical)
         }
+    
         
         private var addButton: some View {
             Button(action: {
@@ -115,7 +130,10 @@ struct ToDoHomePage: View {
         func countAllTask(items: [ItemModel]) -> Int {
             return items.count
         }
+    
     }
+
+    
 
     #Preview {
         ToDoHomePage()
