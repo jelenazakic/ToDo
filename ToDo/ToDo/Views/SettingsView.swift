@@ -7,29 +7,59 @@
 import SwiftUI
 
 struct SettingsView: View {
+    
+    //  MARK: - Properties
     @State private var shouldShowMenu = true
+    
+    //  MARK: - Lifecycle
     
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: ThemeView()) {
-                    HStack{
-                        Text("Theme")
-                            .foregroundColor(Color.black)
-                            
-                        Spacer()
-                        Image(systemName: "arrow.right")
-                            .foregroundColor(Color.black)
-                    }
-            
-                    .padding()
-                    .frame(width: 390)
-                    
-                }
+                themeLabel
+                
+                Spacer()
             }
             .navigationTitle("Settings")
         }
     }
+    
+    //  MARK: - Views
+    
+    var themeLabel: some View {
+        Menu {
+            Button {
+                
+            } label: {
+                Text("System")
+            }
+            
+            Button {
+                
+            } label: {
+                Text("Light")
+            }
+            
+            Button {
+                
+            } label: {
+                Text("Dark")
+            }
+        } label: {
+            HStack {
+                Text("Theme")
+                    .foregroundStyle(Color.black)
+                
+                Spacer()
+                
+                Image(systemName: "chevron.right")
+                    .foregroundColor(Color.black)
+            }
+            .padding(.horizontal)
+            .padding(.top)
+        }
+    }
+    
 }
 
 struct ThemeView: View {
