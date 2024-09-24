@@ -13,12 +13,12 @@ struct ToDoHomePage: View {
     //  MARK: - Properties
     
     @State private var searchTerm = ""
-    @State var isPresented: Bool = false
+    @State var isPresentedSheetNewList: Bool = false
+    @State var isPresentedSheetSettings: Bool = false
     @State private var newList = ListModel(name: "", tasks: [])
     @State var items: [ItemModel] = []
     @State var newNameList: String = " "
-    @State private var isDarkMode = false
-    
+
     @State var lists: [ListModel] = [
         ListModel(name: "Grocery Shopping",
                   tasks:[
@@ -63,6 +63,7 @@ struct ToDoHomePage: View {
         return lists.filter {
             $0.name.localizedCaseInsensitiveContains(searchTerm)
         }
+        
     }
     
     //  MARK: - Properties
@@ -77,25 +78,21 @@ struct ToDoHomePage: View {
                     
                 }
                 
-                .sheet(isPresented: $isPresented) {
-                    AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresented)
+                .sheet(isPresented: $isPresentedSheetNewList) {
+                    AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
                 }
-                .foregroundColor(isDarkMode ? .white : .black)
-                .navigationBarItems(trailing: addButton)
+                
+                .sheet(isPresented: $isPresentedSheetSettings){
+                    SettingsView()
+                }
+                .navigationBarItems(leading: addSettingButton, trailing: addNewListButton)
                 .listRowBackground(Color.blushPlum)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
         }
-        Toggle("Dark Mode", isOn: $isDarkMode)
-                        .padding()
-                    
-                    if isDarkMode {
-                       
-                    } else {
-                        
-                    }
+       
     }
        
         private func listRow(for list: ListModel) -> some View {
@@ -114,14 +111,23 @@ struct ToDoHomePage: View {
         }
     
         
-        private var addButton: some View {
+        private var addNewListButton: some View {
             Button(action: {
-                isPresented = true
+                isPresentedSheetNewList = true
             }) {
                 Image(systemName: "plus")
                     .font(.system(size: 15, weight: .bold))
             }
         }
+    private var addSettingButton: some View {
+        Button(action: {
+            isPresentedSheetSettings = true
+        }) {
+            Image(systemName: "gearshape")
+                .font(.system(size: 15, weight: .bold))
+        }
+    }
+
         
         func checkedCount(items: [ItemModel]) -> Int {
             return items.filter { $0.isCompleted }.count
