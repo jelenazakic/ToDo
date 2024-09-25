@@ -85,7 +85,7 @@ struct ToDoHomePage: View {
                     SettingsView()
                 }
                 .navigationBarItems(leading: addSettingButton, trailing: addNewListButton)
-                .listRowBackground(Color.blushPlum)
+                .listRowBackground(Color.blue)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")

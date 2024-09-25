@@ -10,6 +10,8 @@ struct SettingsView: View {
     
     //  MARK: - Properties
     @State private var shouldShowMenu = true
+    @State private var currentTheme = "System"
+    
     
     //  MARK: - Lifecycle
     
@@ -17,7 +19,7 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 themeLabel
-                
+    
                 Spacer()
             }
             .navigationTitle("Settings")
@@ -27,46 +29,72 @@ struct SettingsView: View {
     //  MARK: - Views
     
     var themeLabel: some View {
-        Menu {
+        Menu() {
+           
             Button {
+                currentTheme = "System"
+            } label: {
+                HStack{
+                    if( currentTheme == "System"){
+                        Image(systemName: "checkmark")
+                    }
+                    Text("System")
+                        
+                }
+            }
+        
+            Button {
+                currentTheme = "Light"
                 
             } label: {
-                Text("System")
+                
+                HStack{
+                    if( currentTheme == "Light"){
+                        Image(systemName: "checkmark")
+                    }
+                    Text("Light")
+                }
             }
             
             Button {
-                
+                currentTheme = "Dark"
             } label: {
-                Text("Light")
-            }
-            
-            Button {
                 
-            } label: {
-                Text("Dark")
+                HStack{
+                    if( currentTheme == "Dark"){
+                        Image(systemName: "checkmark")
+                    }
+                    Text("Dark")
+                }
             }
-        } label: {
+        }
+        
+        label: {
             HStack {
                 Text("Theme")
                     .foregroundStyle(Color.black)
-                
                 Spacer()
-                
+                Text("\(currentTheme)")
+                    .foregroundStyle(Color.black)
+                    .fontWeight(.light)
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color.black)
             }
+            
             .padding(.horizontal)
             .padding(.top)
         }
+        .menuStyle(DefaultMenuStyle())
     }
+        
     
 }
 
-struct ThemeView: View {
+    /*struct ThemeView: View {
     var body: some View {
         VStack {
             Button(action: {}){
-                Text("System")
+                Text("System1")
                     .foregroundColor(Color.black)
                 
             }
@@ -86,7 +114,7 @@ struct ThemeView: View {
         .padding()
     }
 }
-
+*/
 #Preview {
     SettingsView()
 }
