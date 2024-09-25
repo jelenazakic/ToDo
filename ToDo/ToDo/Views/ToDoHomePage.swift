@@ -79,11 +79,13 @@ struct ToDoHomePage: View {
                 
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
+                        .presentationDetents([.fraction(0.3), .fraction(0.2)])
                 }
                 
                 .sheet(isPresented: $isPresentedSheetSettings){
                     SettingsView()
                 }
+                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                                     addSettingButton

@@ -15,6 +15,7 @@ struct MainListView: View {
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
     @State var items: [ItemModel] = []
+    @State private var isAnimatedPlusButton = false
     
     let navigationTitle: String
     
@@ -34,19 +35,6 @@ struct MainListView: View {
         }
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
-        .navigationBarItems(
-            trailing:
-                Button(
-                    " ",
-                    systemImage: "plus",
-                    action: {
-                        isPresented = true
-                        newItem = ""
-                    }
-                )
-                .font(.system(size: 15,weight: .bold, design: .default))
-                .foregroundStyle(Color.blue)
-        )
         .sheet(
             isPresented: $isPresented,
             content: {
@@ -54,7 +42,32 @@ struct MainListView: View {
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
             }
         )
-    }
+        .toolbar{
+            ToolbarItem(placement: .navigationBarTrailing)
+            {
+                Button(action: {
+                        isPresented = true
+                        newItem = ""
+                    })
+                {
+                    Image(systemName: "plus")
+                        .font(.system(size: 15,
+                                      weight: .bold,
+                                      design: .default))
+                        .foregroundStyle(Color.blue)
+                    
+                }
+            }
+            
+            ToolbarItem(placement: .navigationBarLeading)
+            {
+               
+            }
+                
+            }
+        }
+    
+    
     
     //  MARK: - Views
     
