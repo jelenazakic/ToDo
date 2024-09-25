@@ -21,6 +21,7 @@ struct AddNewListView: View {
         TextField("Enter New List", text: $newNameList)
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(20)
+            .foregroundStyle(Color.gray)
     }
     
     private var saveNewListButton: some View {

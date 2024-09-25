@@ -84,7 +84,14 @@ struct ToDoHomePage: View {
                 .sheet(isPresented: $isPresentedSheetSettings){
                     SettingsView()
                 }
-                .navigationBarItems(leading: addSettingButton, trailing: addNewListButton)
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                                    addSettingButton
+                                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                                    addNewListButton
+                                    }
+                }
                 .listRowBackground(Color.blue)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
@@ -105,6 +112,7 @@ struct ToDoHomePage: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.callout)
                     .fontWeight(.light)
+                    .foregroundStyle(Color.black)
             }
             .padding(.vertical)
         }
@@ -116,6 +124,7 @@ struct ToDoHomePage: View {
             }) {
                 Image(systemName: "plus")
                     .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(Color.blue)
             }
         }
     private var addSettingButton: some View {
@@ -124,6 +133,7 @@ struct ToDoHomePage: View {
         }) {
             Image(systemName: "gearshape")
                 .font(.system(size: 15, weight: .bold))
+                .foregroundStyle(Color.blue)
         }
     }
 

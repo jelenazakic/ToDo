@@ -45,6 +45,7 @@ struct MainListView: View {
                     }
                 )
                 .font(.system(size: 15,weight: .bold, design: .default))
+                .foregroundStyle(Color.blue)
         )
         .sheet(
             isPresented: $isPresented,
