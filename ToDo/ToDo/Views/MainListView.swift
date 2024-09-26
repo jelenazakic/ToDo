@@ -10,12 +10,14 @@ import SwiftUI
 struct MainListView: View {
     
     //  MARK: - Properties
-    
+    @EnvironmentObject var themeManager: ThemeManager
     @State private var newItem :String = ""
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
     @State var items: [ItemModel] = []
     @State private var isAnimatedPlusButton = false
+    @State private var editingItemId: UUID? = nil
+    @FocusState private var focusItemId: UUID?
     
     let navigationTitle: String
     
@@ -23,16 +25,32 @@ struct MainListView: View {
     
     var body: some View {
         List {
-            ForEach(items) { item in
+            ForEach($items) { $item in
+                if( item.id == editingItemId){
+                    TextField("", text: $item.title, onCommit: {  editingItemId = nil})
+                        .focused($focusItemId, equals: item.id)
+                        .onAppear{
+                            focusItemId = item.id
+                        }
+                }
+            
                 ListRowView(item: item)
                     .onTapGesture {
                         markAsCompleted(item: item)
+                    }
+                    .contentShape(Rectangle())
+                    .contextMenu{
+                        Button ("Edit"){
+                            editingItemId = item.id
+                        }
                     }
             }
             .onDelete(perform: { indexSet in
                 deleteItem(indexSet: indexSet)
             })
         }
+        .background(themeManager.currentTheme.backgroundColor)
+        .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
         .sheet(
@@ -40,6 +58,7 @@ struct MainListView: View {
             content: {
                 AddNewItemView(isPresented: $isPresented, newItem: $newItem, items: $items)
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
+                    .background(themeManager.currentTheme.backgroundColor)
             }
         )
         .toolbar{
@@ -54,7 +73,7 @@ struct MainListView: View {
                         .font(.system(size: 15,
                                       weight: .bold,
                                       design: .default))
-                        .foregroundStyle(Color.blue)
+                        .foregroundStyle(themeManager.currentTheme.accentColor)
                     
                 }
             }
@@ -90,6 +109,7 @@ struct MainListView: View {
     NavigationView{
         
         MainListView(navigationTitle: "Title")
+            .environmentObject(ThemeManager())
     }
 }
 

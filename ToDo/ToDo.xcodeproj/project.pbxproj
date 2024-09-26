@@ -17,6 +17,7 @@
 		32A213712C90DF370094923E /* ToDoHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A213702C90DF370094923E /* ToDoHomePage.swift */; };
 		32BF063C2CA2D610001C2114 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BF063B2CA2D610001C2114 /* SettingsView.swift */; };
 		32C466BC2C8E4A3D00C2AD1E /* AddNewItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C466BB2C8E4A3D00C2AD1E /* AddNewItemView.swift */; };
+		32D139C82CA56EB200521C69 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D139C72CA56EAE00521C69 /* ThemeModel.swift */; };
 		32E911DC2C923C2300157A08 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E911DB2C923C2300157A08 /* ListModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		32A213702C90DF370094923E /* ToDoHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHomePage.swift; sourceTree = "<group>"; };
 		32BF063B2CA2D610001C2114 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		32C466BB2C8E4A3D00C2AD1E /* AddNewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemView.swift; sourceTree = "<group>"; };
+		32D139C72CA56EAE00521C69 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
 		32E911DB2C923C2300157A08 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,6 +100,7 @@
 		32104E8E2C89D72100705211 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				32D139C72CA56EAE00521C69 /* ThemeModel.swift */,
 				32104E8F2C89D74300705211 /* ItemModel.swift */,
 				32E911DB2C923C2300157A08 /* ListModel.swift */,
 			);
@@ -180,6 +183,7 @@
 				32104E8B2C89BA3100705211 /* MainListView.swift in Sources */,
 				32BF063C2CA2D610001C2114 /* SettingsView.swift in Sources */,
 				32C466BC2C8E4A3D00C2AD1E /* AddNewItemView.swift in Sources */,
+				32D139C82CA56EB200521C69 /* ThemeModel.swift in Sources */,
 				32104E902C89D74300705211 /* ItemModel.swift in Sources */,
 				32A213712C90DF370094923E /* ToDoHomePage.swift in Sources */,
 				32104E8D2C89BD6300705211 /* ListRowView.swift in Sources */,

@@ -10,7 +10,7 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
-    
+    @EnvironmentObject var themeManager: ThemeManager
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
     @State var isPresentedSheetSettings: Bool = false
@@ -76,7 +76,8 @@ struct ToDoHomePage: View {
                     }
                     
                 }
-                
+                .background(themeManager.currentTheme.backgroundColor)
+                .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
                         .presentationDetents([.fraction(0.3), .fraction(0.2)])
@@ -94,7 +95,7 @@ struct ToDoHomePage: View {
                                     addNewListButton
                                     }
                 }
-                .listRowBackground(Color.blue)
+                .listRowBackground(themeManager.currentTheme.backgroundColor)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
@@ -114,7 +115,7 @@ struct ToDoHomePage: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.callout)
                     .fontWeight(.light)
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(themeManager.currentTheme.textColor)
             }
             .padding(.vertical)
         }
@@ -126,7 +127,7 @@ struct ToDoHomePage: View {
             }) {
                 Image(systemName: "plus")
                     .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(Color.blue)
+                    .foregroundStyle(themeManager.currentTheme.accentColor)
             }
         }
     private var addSettingButton: some View {
@@ -135,7 +136,7 @@ struct ToDoHomePage: View {
         }) {
             Image(systemName: "gearshape")
                 .font(.system(size: 15, weight: .bold))
-                .foregroundStyle(Color.blue)
+                .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
 
@@ -154,5 +155,7 @@ struct ToDoHomePage: View {
 
     #Preview {
         ToDoHomePage()
+            .environmentObject(ThemeManager())
     }
     
+

@@ -11,7 +11,7 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
-    
+    @EnvironmentObject var themeManager: ThemeManager
     
     //  MARK: - Lifecycle
     
@@ -33,19 +33,20 @@ struct SettingsView: View {
            
             Button {
                 currentTheme = "System"
+                themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
                     if( currentTheme == "System"){
                         Image(systemName: "checkmark")
                     }
                     Text("System")
-                        
+                    Spacer()
                 }
             }
         
             Button {
                 currentTheme = "Light"
-                
+                themeManager.switchTheme(to: .light)
             } label: {
                 
                 HStack{
@@ -53,11 +54,13 @@ struct SettingsView: View {
                         Image(systemName: "checkmark")
                     }
                     Text("Light")
+                    Spacer()
                 }
             }
             
             Button {
                 currentTheme = "Dark"
+                themeManager.switchTheme(to: .dark)
             } label: {
                 
                 HStack{
@@ -65,6 +68,7 @@ struct SettingsView: View {
                         Image(systemName: "checkmark")
                     }
                     Text("Dark")
+                    Spacer()
                 }
             }
         }
@@ -89,32 +93,6 @@ struct SettingsView: View {
         
     
 }
-
-    /*struct ThemeView: View {
-    var body: some View {
-        VStack {
-            Button(action: {}){
-                Text("System1")
-                    .foregroundColor(Color.black)
-                
-            }
-            Button(action: {}){
-                Text("Light")
-                    .foregroundColor(Color.black)
-                
-            }
-            Button(action: {}){
-                Text("Dark")
-                    .foregroundColor(Color.black)
-                
-            }
-           
-        }
-        .navigationTitle("Theme")
-        .padding()
-    }
-}
-*/
 #Preview {
     SettingsView()
 }
