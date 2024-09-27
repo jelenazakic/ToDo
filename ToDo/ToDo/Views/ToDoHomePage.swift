@@ -70,10 +70,12 @@ struct ToDoHomePage: View {
         VStack{
             NavigationStack {
                 List(filteredLists) { list in
-                    NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)) {
+                    NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)){
                         listRow(for: list)
                     }
+                    
                 }
+                
                 .background(themeManager.currentTheme.backgroundColor)
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
@@ -98,6 +100,7 @@ struct ToDoHomePage: View {
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
+            .tint(Color.green)
         }
     }
     private func listRow(for list: ListModel) -> some View {

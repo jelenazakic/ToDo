@@ -78,11 +78,8 @@ struct MainListView: View {
                         .foregroundStyle(themeManager.currentTheme.accentColor)
                 }
             }
+        
             
-            ToolbarItem(placement: .navigationBarLeading)
-            {
-                
-            }
         }
     }
     
