@@ -17,7 +17,7 @@ struct ToDoHomePage: View {
     @State private var newList = ListModel(name: "", tasks: [])
     @State var items: [ItemModel] = []
     @State var newNameList: String = " "
-
+    
     @State var lists: [ListModel] = [
         ListModel(name: "Grocery Shopping",
                   tasks:[
@@ -62,7 +62,6 @@ struct ToDoHomePage: View {
         return lists.filter {
             $0.name.localizedCaseInsensitiveContains(searchTerm)
         }
-        
     }
     
     //  MARK: - Properties
@@ -74,7 +73,6 @@ struct ToDoHomePage: View {
                     NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)) {
                         listRow(for: list)
                     }
-                    
                 }
                 .background(themeManager.currentTheme.backgroundColor)
                 .scrollContentBackground(.hidden)
@@ -89,11 +87,11 @@ struct ToDoHomePage: View {
                 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                                    addSettingButton
-                                    }
+                        addSettingButton
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                                    addNewListButton
-                                    }
+                        addNewListButton
+                    }
                 }
                 .listRowBackground(themeManager.currentTheme.backgroundColor)
                 .listStyle(PlainListStyle())
@@ -101,35 +99,32 @@ struct ToDoHomePage: View {
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
         }
-       
     }
-       
-        private func listRow(for list: ListModel) -> some View {
-            HStack {
-                Image(systemName: "checklist")
-                Text(list.name)
-                    .fontWeight(.semibold)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)
-                Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .font(.callout)
-                    .fontWeight(.light)
-                    .foregroundStyle(themeManager.currentTheme.textColor)
-            }
-            .padding(.vertical)
+    private func listRow(for list: ListModel) -> some View {
+        HStack {
+            Image(systemName: "checklist")
+            Text(list.name)
+                .fontWeight(.semibold)
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)
+            Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .font(.callout)
+                .fontWeight(.light)
+                .foregroundStyle(themeManager.currentTheme.textColor)
         }
+        .padding(.vertical)
+    }
     
-        
-        private var addNewListButton: some View {
-            Button(action: {
-                isPresentedSheetNewList = true
-            }) {
-                Image(systemName: "plus")
-                    .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(themeManager.currentTheme.accentColor)
-            }
+    private var addNewListButton: some View {
+        Button(action: {
+            isPresentedSheetNewList = true
+        }) {
+            Image(systemName: "plus")
+                .font(.system(size: 15, weight: .bold))
+                .foregroundStyle(themeManager.currentTheme.accentColor)
         }
+    }
     private var addSettingButton: some View {
         Button(action: {
             isPresentedSheetSettings = true
@@ -139,23 +134,19 @@ struct ToDoHomePage: View {
                 .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
-
-        
-        func checkedCount(items: [ItemModel]) -> Int {
-            return items.filter { $0.isCompleted }.count
-        }
-        
-        func countAllTask(items: [ItemModel]) -> Int {
-            return items.count
-        }
     
-    }
-
-    
-
-    #Preview {
-        ToDoHomePage()
-            .environmentObject(ThemeManager())
+    func checkedCount(items: [ItemModel]) -> Int {
+        return items.filter { $0.isCompleted }.count
     }
     
+    func countAllTask(items: [ItemModel]) -> Int {
+        return items.count
+    }
+    
+}
+#Preview {
+    ToDoHomePage()
+        .environmentObject(ThemeManager())
+}
+
 

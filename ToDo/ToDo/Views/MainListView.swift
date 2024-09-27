@@ -28,12 +28,13 @@ struct MainListView: View {
             ForEach($items) { $item in
                 if( item.id == editingItemId){
                     TextField("", text: $item.title, onCommit: {  editingItemId = nil})
+                        .background(themeManager.currentTheme.backgroundColor)
+                        .foregroundStyle(themeManager.currentTheme.textColor)
                         .focused($focusItemId, equals: item.id)
                         .onAppear{
                             focusItemId = item.id
                         }
                 }
-            
                 ListRowView(item: item)
                     .onTapGesture {
                         markAsCompleted(item: item)
@@ -61,31 +62,29 @@ struct MainListView: View {
                     .background(themeManager.currentTheme.backgroundColor)
             }
         )
+        
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing)
             {
                 Button(action: {
-                        isPresented = true
-                        newItem = ""
-                    })
+                    isPresented = true
+                    newItem = ""
+                })
                 {
                     Image(systemName: "plus")
                         .font(.system(size: 15,
                                       weight: .bold,
                                       design: .default))
                         .foregroundStyle(themeManager.currentTheme.accentColor)
-                    
                 }
             }
             
             ToolbarItem(placement: .navigationBarLeading)
             {
-               
-            }
                 
             }
         }
-    
+    }
     
     
     //  MARK: - Views
@@ -101,13 +100,10 @@ struct MainListView: View {
             items[index].isCompleted = !items[index].isCompleted
         }
     }
-    
-    
 }
 
 #Preview {
     NavigationView{
-        
         MainListView(navigationTitle: "Title")
             .environmentObject(ThemeManager())
     }

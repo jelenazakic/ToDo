@@ -6,8 +6,8 @@ struct AddNewListView: View {
     @EnvironmentObject var themeManager: ThemeManager
     @Binding var newNameList: String
     @Binding var lists: [ListModel]
-    @Binding var isPresented: Bool 
-
+    @Binding var isPresented: Bool
+    
     // MARK: - Lifecycle
     var body: some View {
         VStack {
@@ -39,8 +39,8 @@ struct AddNewListView: View {
     
     // MARK: - Utility
     private func onSaveNewListButtonTap() {
-       
-    
+        
+        
         let newList = ListModel(name: newNameList, tasks: [])
         lists.append(newList)
         newNameList = ""
