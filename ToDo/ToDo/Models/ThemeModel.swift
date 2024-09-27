@@ -53,7 +53,7 @@ extension Theme {
 extension Theme {
     static let dark = Theme(
         backgroundColor: Color.black,
-        textColor: .white,
+        textColor: .black,
         accentColor: .orange,
         font: .body)
 }

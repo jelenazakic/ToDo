@@ -40,5 +40,5 @@ struct ListRowView_Previews: PreviewProvider{
 /*#Preview {
     ListRowView(item: ItemModel(title: "Sample 1", isCompleted: false))
            .environmentObject(ThemeManager())
-}*/
+} */
 

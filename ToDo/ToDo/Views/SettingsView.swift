@@ -19,7 +19,7 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 themeLabel
-                
+    
                 Spacer()
             }
             .navigationTitle("Settings")
@@ -30,6 +30,7 @@ struct SettingsView: View {
     
     var themeLabel: some View {
         Menu() {
+           
             Button {
                 currentTheme = "System"
                 themeManager.switchTheme(to: .system)
@@ -42,11 +43,12 @@ struct SettingsView: View {
                     Spacer()
                 }
             }
-            
+        
             Button {
                 currentTheme = "Light"
                 themeManager.switchTheme(to: .light)
             } label: {
+                
                 HStack{
                     if( currentTheme == "Light"){
                         Image(systemName: "checkmark")
@@ -60,10 +62,10 @@ struct SettingsView: View {
                 currentTheme = "Dark"
                 themeManager.switchTheme(to: .dark)
             } label: {
+                
                 HStack{
                     if( currentTheme == "Dark"){
                         Image(systemName: "checkmark")
-                            .background(themeManager.currentTheme.textColor)
                     }
                     Text("Dark")
                     Spacer()
@@ -74,21 +76,23 @@ struct SettingsView: View {
         label: {
             HStack {
                 Text("Theme")
-                    .foregroundStyle(themeManager.currentTheme.textColor)
+                    .foregroundStyle(Color.black)
                 Spacer()
                 Text("\(currentTheme)")
-                    .foregroundStyle(themeManager.currentTheme.textColor)
+                    .foregroundStyle(Color.black)
                     .fontWeight(.light)
                 Image(systemName: "chevron.right")
-                    .foregroundColor(themeManager.currentTheme.textColor)
+                    .foregroundColor(Color.black)
             }
+            
             .padding(.horizontal)
             .padding(.top)
         }
         .menuStyle(DefaultMenuStyle())
     }
+        
+    
 }
 #Preview {
     SettingsView()
-        .environmentObject(ThemeManager())
 }
