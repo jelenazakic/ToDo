@@ -10,7 +10,11 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
-    @EnvironmentObject var themeManager: ThemeManager
+   // @EnvironmentObject var themeManager: ThemeManager
+    @AppStorage("selectedThemeSystem") private var selectedThemeSystem: Bool = false
+    @AppStorage("selectedThemeLight") private var selectedThemeLight: Bool = false
+    @AppStorage("selectedThemeDark") private var selectedThemeDark: Bool = false
+    //AppTheme.system.rawValue
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
     @State var isPresentedSheetSettings: Bool = false
@@ -74,10 +78,9 @@ struct ToDoHomePage: View {
                     NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)){
                         listRow(for: list)
                     }
-                    
                 }
                 
-                .background(themeManager.currentTheme.backgroundColor)
+               // .background(themeManager.currentTheme.backgroundColor)
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
@@ -85,7 +88,12 @@ struct ToDoHomePage: View {
                 }
                 
                 .sheet(isPresented: $isPresentedSheetSettings){
-                    SettingsView()
+                    SettingsView(selectedThemeSystem: $selectedThemeSystem,
+                                 selectedThemeLight: $selectedThemeLight,
+                                 selectedThemeDark: $selectedThemeDark)
+                        .presentationDetents([.fraction(0.9)])
+                        .edgesIgnoringSafeArea(.all)
+                        
                 }
                 
                 .toolbar {
@@ -96,15 +104,19 @@ struct ToDoHomePage: View {
                                     addNewListButton
                                     }
                 }
-                .listRowBackground(themeManager.currentTheme.backgroundColor)
+               // .listRowBackground(themeManager.currentTheme.backgroundColor)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
-            .tint(Color.green)
+            .tint(Color.blue)
+           
         }
+        
+        
        
     }
+        
        
         private func listRow(for list: ListModel) -> some View {
             HStack {
@@ -117,7 +129,7 @@ struct ToDoHomePage: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(.callout)
                     .fontWeight(.light)
-                    .foregroundStyle(themeManager.currentTheme.textColor)
+                  //  .foregroundStyle(themeManager.currentTheme.textColor)
             }
             .padding(.vertical)
         }
@@ -129,7 +141,7 @@ struct ToDoHomePage: View {
             }) {
                 Image(systemName: "plus")
                     .font(.system(size: 15, weight: .bold))
-                    .foregroundStyle(themeManager.currentTheme.accentColor)
+                  //  .foregroundStyle(themeManager.currentTheme.accentColor)
             }
         }
     private var addSettingButton: some View {
@@ -138,7 +150,7 @@ struct ToDoHomePage: View {
         }) {
             Image(systemName: "gearshape")
                 .font(.system(size: 15, weight: .bold))
-                .foregroundStyle(themeManager.currentTheme.accentColor)
+              //  .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
 
@@ -150,14 +162,18 @@ struct ToDoHomePage: View {
         func countAllTask(items: [ItemModel]) -> Int {
             return items.count
         }
+   
+
     
     }
+    
 
     
 
     #Preview {
         ToDoHomePage()
-            .environmentObject(ThemeManager())
+            
+           // .environmentObject(ThemeManager())
     }
     
 

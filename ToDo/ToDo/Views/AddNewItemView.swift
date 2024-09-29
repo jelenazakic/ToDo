@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AddNewItemView: View {
-    @EnvironmentObject var themeManager: ThemeManager
+  //  @EnvironmentObject var themeManager: ThemeManager
+    
     @Binding var isPresented:Bool
     @Binding var newItem: String
     @Binding var items: [ItemModel]
@@ -19,8 +20,8 @@ struct AddNewItemView: View {
                 TextField("Enter new task", text: $newItem)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding(20)
-                    .background(themeManager.currentTheme.backgroundColor)
-                    .foregroundStyle(themeManager.currentTheme.textColor)
+                 //   .background(themeManager.currentTheme.backgroundColor)
+                   // .foregroundStyle(themeManager.currentTheme.textColor)
                     
                     
                 Button("Save"){
@@ -34,16 +35,19 @@ struct AddNewItemView: View {
                 .font(.system(size: 15,weight: .bold, 
                               design: .default))
                 .cornerRadius(20)
-                .foregroundStyle(themeManager.currentTheme.accentColor)
+               // .foregroundStyle(themeManager.currentTheme.accentColor)
             }
-            .background(themeManager.currentTheme.backgroundColor)
+           
+        
+           // .background(themeManager.currentTheme.backgroundColor)
         }
+
 }
 
 #Preview {
     AddNewItemView(isPresented: .constant(false),
                    newItem: .constant(""),
                    items: .constant([ItemModel(title: "Sample 1", isCompleted: false)]))
-    .environmentObject(ThemeManager())
+   // .environmentObject(ThemeManager())
     
 }

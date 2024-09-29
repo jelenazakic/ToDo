@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ListRowView: View {
-    @EnvironmentObject var themeManager: ThemeManager
+   
+    
+   // @EnvironmentObject var themeManager: ThemeManager
     let item: ItemModel
    
     
@@ -21,7 +23,12 @@ struct ListRowView: View {
              //   .background(themeManager.currentTheme.textColor)
               //  .foregroundStyle(themeManager.currentTheme.textColor)
         }
+        
+        
+        
     }
+  
+
 }
 
 struct ListRowView_Previews: PreviewProvider{
@@ -37,8 +44,8 @@ struct ListRowView_Previews: PreviewProvider{
     }
     
 }
-/*#Preview {
+#Preview {
     ListRowView(item: ItemModel(title: "Sample 1", isCompleted: false))
-           .environmentObject(ThemeManager())
-} */
+           
+} 
 

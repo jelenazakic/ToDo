@@ -3,7 +3,8 @@ import SwiftUI
 struct AddNewListView: View {
     
     // MARK: - Properties
-    @EnvironmentObject var themeManager: ThemeManager
+   // @EnvironmentObject var themeManager: ThemeManager
+   
     @Binding var newNameList: String
     @Binding var lists: [ListModel]
     @Binding var isPresented: Bool 
@@ -14,6 +15,7 @@ struct AddNewListView: View {
             newListTextField
             saveNewListButton
         }
+        
         .padding()
     }
     
@@ -46,12 +48,14 @@ struct AddNewListView: View {
         newNameList = ""
         isPresented = false
     }
+    
+
 }
 
 #Preview {
     AddNewListView(newNameList: .constant(""),
                    lists: .constant([]),
                    isPresented: .constant(false))
-    .environmentObject(ThemeManager())
+   // .environmentObject(ThemeManager())
 }
 

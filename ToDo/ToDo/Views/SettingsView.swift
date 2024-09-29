@@ -11,7 +11,11 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
-    @EnvironmentObject var themeManager: ThemeManager
+    
+    @Binding var selectedThemeSystem: Bool
+    @Binding var selectedThemeLight: Bool
+    @Binding var selectedThemeDark: Bool
+    // @EnvironmentObject var themeManager: ThemeManager
     
     //  MARK: - Lifecycle
     
@@ -19,21 +23,27 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 themeLabel
-    
+                
                 Spacer()
             }
             .navigationTitle("Settings")
+            
         }
+        
     }
+    
     
     //  MARK: - Views
     
     var themeLabel: some View {
         Menu() {
-           
+            
             Button {
                 currentTheme = "System"
-                themeManager.switchTheme(to: .system)
+                selectedThemeDark = false
+                selectedThemeSystem = true
+                selectedThemeLight = false
+                // themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
                     if( currentTheme == "System"){
@@ -43,10 +53,14 @@ struct SettingsView: View {
                     Spacer()
                 }
             }
-        
+            
+            
             Button {
                 currentTheme = "Light"
-                themeManager.switchTheme(to: .light)
+                selectedThemeDark = false
+                selectedThemeSystem = false
+                selectedThemeLight = true
+                // themeManager.switchTheme(to: .light)
             } label: {
                 
                 HStack{
@@ -60,7 +74,10 @@ struct SettingsView: View {
             
             Button {
                 currentTheme = "Dark"
-                themeManager.switchTheme(to: .dark)
+                selectedThemeDark = true
+                selectedThemeSystem = false
+                selectedThemeLight = false
+                // themeManager.switchTheme(to: .dark)
             } label: {
                 
                 HStack{
@@ -76,23 +93,36 @@ struct SettingsView: View {
         label: {
             HStack {
                 Text("Theme")
-                    .foregroundStyle(Color.black)
+                //.foregroundStyle(Color.black)
                 Spacer()
                 Text("\(currentTheme)")
-                    .foregroundStyle(Color.black)
+                // .foregroundStyle(Color.black)
                     .fontWeight(.light)
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color.black)
             }
             
+            
             .padding(.horizontal)
             .padding(.top)
         }
         .menuStyle(DefaultMenuStyle())
-    }
         
+    }
+
+    
     
 }
+
+
+    
 #Preview {
-    SettingsView()
+    SettingsView( selectedThemeSystem: .constant(false),
+                  selectedThemeLight: .constant(false),
+                  selectedThemeDark: .constant(false))
+        
 }
+
+
+
+

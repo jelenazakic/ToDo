@@ -10,7 +10,7 @@ import SwiftUI
 struct MainListView: View {
     
     //  MARK: - Properties
-    @EnvironmentObject var themeManager: ThemeManager
+   // @EnvironmentObject var themeManager: ThemeManager
     @State private var newItem :String = ""
     @State private var isPresented: Bool = false
     @State var isCompleted: Bool = false
@@ -49,7 +49,9 @@ struct MainListView: View {
                 deleteItem(indexSet: indexSet)
             })
         }
-        .background(themeManager.currentTheme.backgroundColor)
+        
+        
+        //.background(themeManager.currentTheme.backgroundColor)
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
@@ -58,7 +60,7 @@ struct MainListView: View {
             content: {
                 AddNewItemView(isPresented: $isPresented, newItem: $newItem, items: $items)
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
-                    .background(themeManager.currentTheme.backgroundColor)
+                   // .background(themeManager.currentTheme.backgroundColor)
             }
         )
         .toolbar{
@@ -73,14 +75,17 @@ struct MainListView: View {
                         .font(.system(size: 15,
                                       weight: .bold,
                                       design: .default))
-                        .foregroundStyle(themeManager.currentTheme.accentColor)
+                       // .foregroundStyle(themeManager.currentTheme.accentColor)
                     
                 }
             }
             
         }
-    }
         
+        
+    }
+
+
         //  MARK: - Views
         
         //  MARK: - Utility
@@ -94,6 +99,7 @@ struct MainListView: View {
                 items[index].isCompleted = !items[index].isCompleted
             }
         }
+  
         
     }
     
@@ -103,7 +109,7 @@ struct MainListView: View {
     NavigationView{
         
         MainListView(navigationTitle: "Title")
-            .environmentObject(ThemeManager())
+           // .environmentObject(ThemeManager())
     }
 }
 
