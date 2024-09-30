@@ -26,7 +26,8 @@ struct SettingsView: View {
             }
             .navigationTitle("Settings")
         }
-        .preferredColorScheme(appTheme == "dark" ? .dark : .light)
+       // .preferredColorScheme(appTheme == "dark" ? .dark : .light)
+        .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : .none))
     }
     
     //  MARK: - Views
@@ -36,7 +37,7 @@ struct SettingsView: View {
             
             Button {
                 currentTheme = "System"
-                
+                appTheme = "none"
                 // themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
@@ -93,23 +94,13 @@ struct SettingsView: View {
                 Image(systemName: "chevron.right")
                     .foregroundColor(Color.black)
             }
-            
-            
             .padding(.horizontal)
             .padding(.top)
         }
-        
         .menuStyle(DefaultMenuStyle())
         
     }
-    
-    
-    
-    
 }
-
-
-
 #Preview {
     SettingsView()
     

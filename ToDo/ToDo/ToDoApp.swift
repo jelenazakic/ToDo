@@ -23,7 +23,15 @@ struct ToDoApp: App {
         }
     }
           private var colorScheme: ColorScheme?{
-            appTheme == "dark" ? .dark : .light
+              if( appTheme == "dark") {
+                  .dark
+              }
+                else if(appTheme == "light"){
+                 .light
+             }
+              else{
+                  .none
+              }
         }
     
 }
