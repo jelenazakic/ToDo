@@ -10,18 +10,15 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
-   // @EnvironmentObject var themeManager: ThemeManager
-    @AppStorage("selectedThemeSystem") private var selectedThemeSystem: Bool = false
-    @AppStorage("selectedThemeLight") private var selectedThemeLight: Bool = false
-    @AppStorage("selectedThemeDark") private var selectedThemeDark: Bool = false
-    //AppTheme.system.rawValue
+    // @EnvironmentObject var themeManager: ThemeManager
+    
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
     @State var isPresentedSheetSettings: Bool = false
     @State private var newList = ListModel(name: "", tasks: [])
     @State var items: [ItemModel] = []
     @State var newNameList: String = " "
-
+    
     @State var lists: [ListModel] = [
         ListModel(name: "Grocery Shopping",
                   tasks:[
@@ -80,7 +77,7 @@ struct ToDoHomePage: View {
                     }
                 }
                 
-               // .background(themeManager.currentTheme.backgroundColor)
+                // .background(themeManager.currentTheme.backgroundColor)
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
@@ -88,92 +85,92 @@ struct ToDoHomePage: View {
                 }
                 
                 .sheet(isPresented: $isPresentedSheetSettings){
-                    SettingsView(selectedThemeSystem: $selectedThemeSystem,
-                                 selectedThemeLight: $selectedThemeLight,
-                                 selectedThemeDark: $selectedThemeDark)
+                    SettingsView()
                         .presentationDetents([.fraction(0.9)])
                         .edgesIgnoringSafeArea(.all)
-                        
+                    
                 }
                 
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
-                                    addSettingButton
-                                    }
+                        addSettingButton
+                    }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                                    addNewListButton
-                                    }
+                        addNewListButton
+                    }
                 }
-               // .listRowBackground(themeManager.currentTheme.backgroundColor)
+                // .listRowBackground(themeManager.currentTheme.backgroundColor)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
             .tint(Color.blue)
-           
+            
         }
         
         
-       
+        
+        
+        
     }
-        
-       
-        private func listRow(for list: ListModel) -> some View {
-            HStack {
-                Image(systemName: "checklist")
-                Text(list.name)
-                    .fontWeight(.semibold)
-                    .lineLimit(2)
-                    .minimumScaleFactor(0.5)
-                Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .font(.callout)
-                    .fontWeight(.light)
-                  //  .foregroundStyle(themeManager.currentTheme.textColor)
-            }
-            .padding(.vertical)
-        }
     
-        
-        private var addNewListButton: some View {
-            Button(action: {
-                isPresentedSheetNewList = true
-            }) {
-                Image(systemName: "plus")
-                    .font(.system(size: 15, weight: .bold))
-                  //  .foregroundStyle(themeManager.currentTheme.accentColor)
-            }
+    
+    private func listRow(for list: ListModel) -> some View {
+        HStack {
+            Image(systemName: "checklist")
+            Text(list.name)
+                .fontWeight(.semibold)
+                .lineLimit(2)
+                .minimumScaleFactor(0.5)
+            Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .font(.callout)
+                .fontWeight(.light)
+            //  .foregroundStyle(themeManager.currentTheme.textColor)
         }
+        .padding(.vertical)
+    }
+    
+    
+    private var addNewListButton: some View {
+        Button(action: {
+            isPresentedSheetNewList = true
+        }) {
+            Image(systemName: "plus")
+                .font(.system(size: 15, weight: .bold))
+            //  .foregroundStyle(themeManager.currentTheme.accentColor)
+        }
+    }
     private var addSettingButton: some View {
         Button(action: {
             isPresentedSheetSettings = true
         }) {
             Image(systemName: "gearshape")
                 .font(.system(size: 15, weight: .bold))
-              //  .foregroundStyle(themeManager.currentTheme.accentColor)
+            //  .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
-
-        
-        func checkedCount(items: [ItemModel]) -> Int {
-            return items.filter { $0.isCompleted }.count
-        }
-        
-        func countAllTask(items: [ItemModel]) -> Int {
-            return items.count
-        }
-   
-
     
+    
+    func checkedCount(items: [ItemModel]) -> Int {
+        return items.filter { $0.isCompleted }.count
     }
     
-
-    
-
-    #Preview {
-        ToDoHomePage()
-            
-           // .environmentObject(ThemeManager())
+    func countAllTask(items: [ItemModel]) -> Int {
+        return items.count
     }
     
+    
+    
+}
+
+
+
+
+#Preview {
+    ToDoHomePage()
+    
+    // .environmentObject(ThemeManager())
+}
+
 

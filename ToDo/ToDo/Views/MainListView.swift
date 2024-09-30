@@ -49,6 +49,7 @@ struct MainListView: View {
                 deleteItem(indexSet: indexSet)
             })
         }
+       
         
         
         //.background(themeManager.currentTheme.backgroundColor)

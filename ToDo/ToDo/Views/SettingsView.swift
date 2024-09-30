@@ -11,10 +11,8 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
+    @AppStorage("appTheme") private var appTheme: String = "light"
     
-    @Binding var selectedThemeSystem: Bool
-    @Binding var selectedThemeLight: Bool
-    @Binding var selectedThemeDark: Bool
     // @EnvironmentObject var themeManager: ThemeManager
     
     //  MARK: - Lifecycle
@@ -27,11 +25,9 @@ struct SettingsView: View {
                 Spacer()
             }
             .navigationTitle("Settings")
-            
         }
-        
+        .preferredColorScheme(appTheme == "dark" ? .dark : .light)
     }
-    
     
     //  MARK: - Views
     
@@ -40,9 +36,7 @@ struct SettingsView: View {
             
             Button {
                 currentTheme = "System"
-                selectedThemeDark = false
-                selectedThemeSystem = true
-                selectedThemeLight = false
+                
                 // themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
@@ -57,9 +51,8 @@ struct SettingsView: View {
             
             Button {
                 currentTheme = "Light"
-                selectedThemeDark = false
-                selectedThemeSystem = false
-                selectedThemeLight = true
+                
+                appTheme = "light"
                 // themeManager.switchTheme(to: .light)
             } label: {
                 
@@ -74,9 +67,8 @@ struct SettingsView: View {
             
             Button {
                 currentTheme = "Dark"
-                selectedThemeDark = true
-                selectedThemeSystem = false
-                selectedThemeLight = false
+                appTheme = "dark"
+                
                 // themeManager.switchTheme(to: .dark)
             } label: {
                 
@@ -106,21 +98,21 @@ struct SettingsView: View {
             .padding(.horizontal)
             .padding(.top)
         }
+        
         .menuStyle(DefaultMenuStyle())
         
     }
-
+    
+    
     
     
 }
 
 
-    
+
 #Preview {
-    SettingsView( selectedThemeSystem: .constant(false),
-                  selectedThemeLight: .constant(false),
-                  selectedThemeDark: .constant(false))
-        
+    SettingsView()
+    
 }
 
 

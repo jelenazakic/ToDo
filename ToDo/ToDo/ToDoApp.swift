@@ -9,15 +9,21 @@ import SwiftUI
 
 @main
 struct ToDoApp: App {
-    
-    @StateObject  var themeManger = ThemeManager()
+   
+    @AppStorage("appTheme") private var appTheme: String = "light"
+
+  //  @StateObject  var themeManger = ThemeManager()
     
     var body: some Scene {
         WindowGroup {
             NavigationView{
                 ToDoHomePage()
-                    .environmentObject(themeManger)
+                    .preferredColorScheme(colorScheme)
             }
         }
     }
+          private var colorScheme: ColorScheme?{
+            appTheme == "dark" ? .dark : .light
+        }
+    
 }
