@@ -21,15 +21,20 @@ struct SettingsView: View {
         NavigationView {
             VStack {
                 themeLabel
-                
                 Spacer()
             }
             .navigationTitle("Settings")
+            .onAppear{
+                updateCurrentTheme()
+            }
         }
        // .preferredColorScheme(appTheme == "dark" ? .dark : .light)
         .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : .none))
     }
     
+    private func updateCurrentTheme() {
+        currentTheme = appTheme == "none" ? "System" : appTheme.capitalized
+    }
     //  MARK: - Views
     
     var themeLabel: some View {
@@ -38,6 +43,7 @@ struct SettingsView: View {
             Button {
                 currentTheme = "System"
                 appTheme = "none"
+                updateCurrentTheme()
                 // themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
@@ -54,6 +60,8 @@ struct SettingsView: View {
                 currentTheme = "Light"
                 
                 appTheme = "light"
+                updateCurrentTheme()
+
                 // themeManager.switchTheme(to: .light)
             } label: {
                 
@@ -69,7 +77,8 @@ struct SettingsView: View {
             Button {
                 currentTheme = "Dark"
                 appTheme = "dark"
-                
+                updateCurrentTheme()
+
                 // themeManager.switchTheme(to: .dark)
             } label: {
                 
