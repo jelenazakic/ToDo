@@ -22,16 +22,15 @@ struct ToDoApp: App {
             }
         }
     }
-          private var colorScheme: ColorScheme?{
-              if( appTheme == "dark") {
-                  .dark
-              }
-                else if(appTheme == "light"){
-                 .light
-             }
-              else{
-                  .none
-              }
-        }
+    private var colorScheme: ColorScheme? {
+           switch appTheme {
+           case "dark":
+               return .dark
+           case "light":
+               return .light
+           default:
+               return nil 
+           }
+       }
     
 }

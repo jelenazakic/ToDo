@@ -11,7 +11,7 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
-    @AppStorage("appTheme") private var appTheme: String = "light"
+    @AppStorage("appTheme") private var appTheme: String = "none"
     
     // @EnvironmentObject var themeManager: ThemeManager
     
@@ -19,6 +19,7 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
+           
             VStack {
                 themeLabel
                 Spacer()
@@ -28,8 +29,8 @@ struct SettingsView: View {
                 updateCurrentTheme()
             }
         }
-       // .preferredColorScheme(appTheme == "dark" ? .dark : .light)
-        .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : .none))
+        //.preferredColorScheme(appTheme == "dark" ? .dark : .light)
+        .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : nil))
     }
     
     private func updateCurrentTheme() {
