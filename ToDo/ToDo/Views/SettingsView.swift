@@ -13,13 +13,11 @@ struct SettingsView: View {
     @State private var currentTheme = "System"
     @AppStorage("appTheme") private var appTheme: String = "none"
     
-    // @EnvironmentObject var themeManager: ThemeManager
-    
     //  MARK: - Lifecycle
     
     var body: some View {
         NavigationView {
-           
+            
             VStack {
                 themeLabel
                 Spacer()
@@ -29,7 +27,6 @@ struct SettingsView: View {
                 updateCurrentTheme()
             }
         }
-        //.preferredColorScheme(appTheme == "dark" ? .dark : .light)
         .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : nil))
     }
     
@@ -45,32 +42,30 @@ struct SettingsView: View {
                 currentTheme = "System"
                 appTheme = "none"
                 updateCurrentTheme()
-                // themeManager.switchTheme(to: .system)
             } label: {
                 HStack{
                     if( currentTheme == "System"){
                         Image(systemName: "checkmark")
                     }
+                    
                     Text("System")
                     Spacer()
                 }
             }
             
-            
             Button {
                 currentTheme = "Light"
-                
                 appTheme = "light"
                 updateCurrentTheme()
-
-                // themeManager.switchTheme(to: .light)
             } label: {
                 
                 HStack{
                     if( currentTheme == "Light"){
                         Image(systemName: "checkmark")
                     }
+                    
                     Text("Light")
+                    
                     Spacer()
                 }
             }
@@ -79,15 +74,15 @@ struct SettingsView: View {
                 currentTheme = "Dark"
                 appTheme = "dark"
                 updateCurrentTheme()
-
-                // themeManager.switchTheme(to: .dark)
             } label: {
                 
                 HStack{
                     if( currentTheme == "Dark"){
                         Image(systemName: "checkmark")
                     }
+                    
                     Text("Dark")
+                    
                     Spacer()
                 }
             }
@@ -96,8 +91,9 @@ struct SettingsView: View {
         label: {
             HStack {
                 Text("Theme")
-                //.foregroundStyle(Color.black)
+                
                 Spacer()
+                
                 Text("\(currentTheme)")
                 // .foregroundStyle(Color.black)
                     .fontWeight(.light)

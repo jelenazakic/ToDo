@@ -10,7 +10,6 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
-    // @EnvironmentObject var themeManager: ThemeManager
     
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
@@ -20,6 +19,7 @@ struct ToDoHomePage: View {
     @State var newNameList: String = " "
     
     @State var lists: [ListModel] = [
+        
         ListModel(name: "Grocery Shopping",
                   tasks:[
                     ItemModel(title: "Buy milk", isCompleted: false),
@@ -27,6 +27,7 @@ struct ToDoHomePage: View {
                     ItemModel(title: "Pick up bread", isCompleted: true)
                   ]
                  ),
+        
         ListModel(name: "Daily Task List",
                   tasks:[
                     ItemModel(title: "Check email", isCompleted: true),
@@ -34,6 +35,7 @@ struct ToDoHomePage: View {
                     ItemModel(title: "Review project", isCompleted: false)
                   ]
                  ),
+        
         ListModel(name: "Morning Routine",
                   tasks:[
                     ItemModel(title: "Exercise", isCompleted: false),
@@ -41,6 +43,7 @@ struct ToDoHomePage: View {
                     ItemModel(title: "Breakfast", isCompleted: false)
                   ]
                  ),
+        
         ListModel(name: "Monthly Bills",
                   tasks:[
                     ItemModel(title: "Pay rent", isCompleted: true),
@@ -72,25 +75,23 @@ struct ToDoHomePage: View {
         VStack{
             NavigationStack {
                 List(filteredLists) { list in
-                    NavigationLink(destination: MainListView(items: list.tasks, navigationTitle: list.name)){
+                    NavigationLink(destination: MainListView(items: list.tasks,
+                                                             navigationTitle: list.name)){
                         listRow(for: list)
                     }
                 }
-                
-                // .background(themeManager.currentTheme.backgroundColor)
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
-                    AddNewListView(newNameList: $newNameList, lists: $lists, isPresented: $isPresentedSheetNewList)
-                        .presentationDetents([.fraction(0.3), .fraction(0.2)])
+                    AddNewListView(newNameList: $newNameList,
+                                   lists: $lists, isPresented: $isPresentedSheetNewList)
+                    .presentationDetents([.fraction(0.3), .fraction(0.2)])
                 }
-                
                 .sheet(isPresented: $isPresentedSheetSettings){
                     SettingsView()
                         .presentationDetents([.fraction(0.9)])
                         .edgesIgnoringSafeArea(.all)
                     
                 }
-                
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         addSettingButton
@@ -99,19 +100,12 @@ struct ToDoHomePage: View {
                         addNewListButton
                     }
                 }
-                // .listRowBackground(themeManager.currentTheme.backgroundColor)
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
             }
             .tint(Color.blue)
-            
         }
-        
-        
-        
-        
-        
     }
     
     
@@ -126,11 +120,9 @@ struct ToDoHomePage: View {
                 .frame(maxWidth: .infinity, alignment: .trailing)
                 .font(.callout)
                 .fontWeight(.light)
-            //  .foregroundStyle(themeManager.currentTheme.textColor)
         }
         .padding(.vertical)
     }
-    
     
     private var addNewListButton: some View {
         Button(action: {
@@ -138,16 +130,15 @@ struct ToDoHomePage: View {
         }) {
             Image(systemName: "plus")
                 .font(.system(size: 15, weight: .bold))
-            //  .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
     private var addSettingButton: some View {
+        
         Button(action: {
             isPresentedSheetSettings = true
         }) {
             Image(systemName: "gearshape")
                 .font(.system(size: 15, weight: .bold))
-            //  .foregroundStyle(themeManager.currentTheme.accentColor)
         }
     }
     
@@ -159,19 +150,11 @@ struct ToDoHomePage: View {
     func countAllTask(items: [ItemModel]) -> Int {
         return items.count
     }
-    
-    
-    
 }
-
-
 
 
 #Preview {
     ToDoHomePage()
-        
-    
-    // .environmentObject(ThemeManager())
 }
 
 
