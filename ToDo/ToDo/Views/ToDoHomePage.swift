@@ -74,11 +74,16 @@ struct ToDoHomePage: View {
     var body: some View {
         VStack{
             NavigationStack {
-                List(filteredLists) { list in
-                    NavigationLink(destination: MainListView(items: list.tasks,
-                                                             navigationTitle: list.name)){
-                        listRow(for: list)
+                List {
+                    ForEach(filteredLists) { list in
+                        NavigationLink(destination: MainListView(items: list.tasks,
+                                                                 navigationTitle: list.name)) {
+                            listRow(for: list)
+                        }
                     }
+                    .onDelete(perform: { indexSet in
+                        deleteList(at: indexSet) // Using closure to delete
+                    }) // Swipe-to-delete functionality
                 }
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
@@ -149,6 +154,10 @@ struct ToDoHomePage: View {
     
     func countAllTask(items: [ItemModel]) -> Int {
         return items.count
+    }
+    
+    private func deleteList(at offsets: IndexSet) {
+        lists.remove(atOffsets: offsets) // Removes items from the lists array
     }
 }
 
