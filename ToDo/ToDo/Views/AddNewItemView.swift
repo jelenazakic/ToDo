@@ -32,6 +32,7 @@ struct AddNewItemView: View {
             .font(.system(size: 15,weight: .bold,
                           design: .default))
             .cornerRadius(20)
+            .buttonStyle(GrowingButton())
         }
     }
 }

@@ -16,8 +16,8 @@ struct ToDoHomePage: View {
     @State var isPresentedSheetSettings: Bool = false
     @State private var newList = ListModel(name: "", tasks: [])
     @State var items: [ItemModel] = []
-    @State var newNameList: String = " "
-    
+    @State var newNameList: String = ""
+    @State private var isHovered = false
     @State var lists: [ListModel] = [
         
         ListModel(name: "Grocery Shopping",
@@ -143,8 +143,14 @@ struct ToDoHomePage: View {
             isPresentedSheetSettings = true
         }) {
             Image(systemName: "gearshape")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
                 .font(.system(size: 15, weight: .bold))
+                .frame(width: isHovered ? 50 : 25, height: isHovered ? 50 : 25)
+                .animation(.easeInOut(duration: 0.2), value: isHovered)
         }
+        .onHover { hovering in
+            isHovered = hovering}
     }
     
     
