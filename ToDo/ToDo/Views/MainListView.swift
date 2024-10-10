@@ -34,18 +34,24 @@ struct MainListView: View {
                     .onAppear{
                         focusItemId = item.id
                     }
-                }
-                
-                ListRowView(item: item)
-                    .onTapGesture {
-                        markAsCompleted(item: item)
-                    }
-                    .contentShape(Rectangle())
-                    .contextMenu{
-                        Button ("Edit"){
-                            editingItemId = item.id
+                    .onChange(of: editingItemId) {
+                        if editingItemId == item.id {
+                            focusItemId = item.id
                         }
                     }
+                } else{
+                    
+                    ListRowView(item: item)
+                        .onTapGesture {
+                            markAsCompleted(item: item)
+                        }
+                        .contentShape(Rectangle())
+                        .contextMenu{
+                            Button ("Edit"){
+                                editingItemId = item.id
+                            }
+                        }
+                }
             }
             .onDelete(perform: { indexSet in
                 deleteItem(indexSet: indexSet)
