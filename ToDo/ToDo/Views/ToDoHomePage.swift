@@ -77,13 +77,14 @@ struct ToDoHomePage: View {
                 List {
                     ForEach(filteredLists) { list in
                         NavigationLink(destination: MainListView(items: list.tasks,
-                                                                 navigationTitle: list.name)) {
+                                                                 navigationTitle: list.name))
+                        {
                             listRow(for: list)
                         }
                     }
                     .onDelete(perform: { indexSet in
-                        deleteList(at: indexSet) // Using closure to delete
-                    }) // Swipe-to-delete functionality
+                        deleteList(at: indexSet)
+                    })
                 }
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {

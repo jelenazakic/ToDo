@@ -87,7 +87,7 @@ struct SettingsView: View {
                 }
             }
         }
-        
+    
         label: {
             HStack {
                 Text("Theme")
@@ -102,6 +102,7 @@ struct SettingsView: View {
             }
             .padding(.horizontal)
             .padding(.top)
+
         }
         .menuStyle(DefaultMenuStyle())
         
