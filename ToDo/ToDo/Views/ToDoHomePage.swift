@@ -18,6 +18,8 @@ struct ToDoHomePage: View {
     @State var items: [ItemModel] = []
     @State var newNameList: String = ""
     @State private var isHovered = false
+    @State private var editingListId: UUID? = nil
+    @FocusState private var focusListId: UUID?
     @State var lists: [ListModel] = [
         
         ListModel(name: "Grocery Shopping",
@@ -75,7 +77,30 @@ struct ToDoHomePage: View {
         VStack{
             NavigationStack {
                 List {
-                    ForEach(filteredLists) { list in
+                    ForEach(filterList) { list in
+                        if( list.id == editingListId){
+                            TextField("", text: list.title, onCommit: {
+                                editingListId = nil
+                            })
+                            .focused($focusListId, equals: List.id)
+                            .onAppear{
+                                focusListId = list.id
+                            }
+                            .onChange(of: editingListId) {
+                                if editingListId == list.id {
+                                    focusListId = list.id
+                                }
+                            }
+                        } else{
+                            
+                                .contentShape(Rectangle())
+                                .contextMenu{
+                                    Button ("Edit"){
+                                        editingListId = list.id
+                                    }
+                                }
+                        }
+
                         NavigationLink(destination: MainListView(items: list.tasks,
                                                                  navigationTitle: list.name))
                         {
