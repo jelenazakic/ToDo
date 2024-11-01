@@ -11,107 +11,88 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
-    @AppStorage("appTheme") private var appTheme: String = "none"
-    
-    //  MARK: - Lifecycle
-    
-    var body: some View {
-        NavigationView {
-            
-            VStack {
-                themeLabel
-                Spacer()
-            }
-            .navigationTitle("Settings")
-            .onAppear{
-                updateCurrentTheme()
-            }
-        }
-        .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : nil))
-    }
-    
-    private func updateCurrentTheme() {
-        currentTheme = appTheme == "none" ? "System" : appTheme.capitalized
-    }
-    //  MARK: - Views
-    
-    var themeLabel: some View {
-        Menu() {
-            
-            Button {
-                currentTheme = "System"
-                appTheme = "none"
-                updateCurrentTheme()
-            } label: {
-                HStack{
-                    if( currentTheme == "System"){
-                        Image(systemName: "checkmark")
-                    }
-                    
-                    Text("System")
-                    Spacer()
-                }
-            }
-            
-            Button {
-                currentTheme = "Light"
-                appTheme = "light"
-                updateCurrentTheme()
-            } label: {
-                
-                HStack{
-                    if( currentTheme == "Light"){
-                        Image(systemName: "checkmark")
-                    }
-                    
-                    Text("Light")
-                    
-                    Spacer()
-                }
-            }
-            
-            Button {
-                currentTheme = "Dark"
-                appTheme = "dark"
-                updateCurrentTheme()
-            } label: {
-                
-                HStack{
-                    if( currentTheme == "Dark"){
-                        Image(systemName: "checkmark")
-                    }
-                    
-                    Text("Dark")
-                    
-                    Spacer()
-                }
-            }
-        }
-    
-        label: {
-            HStack {
-                Text("Theme")
-                
-                Spacer()
-                
-                Text("\(currentTheme)")
-                // .foregroundStyle(Color.black)
-                    .fontWeight(.light)
-                Image(systemName: "chevron.right")
-                    .foregroundColor(Color.black)
-            }
-            .padding(.horizontal)
-            .padding(.top)
-
-        }
-        .menuStyle(DefaultMenuStyle())
         
+    @AppStorage("appTheme") private var appTheme: String = "none"
+
+        // MARK: - Lifecycle
+        var body: some View {
+            NavigationView {
+                VStack {
+                    themeLabel
+                    Spacer()
+                }
+                .navigationTitle("Settings")
+                .onAppear {
+                    updateCurrentTheme()
+                    
+                }
+            }
+            .preferredColorScheme(appTheme == "dark" ? .dark : (appTheme == "light" ? .light : nil))
+            
+        }
+
+        // MARK: - Functions
+        private func updateCurrentTheme() {
+            currentTheme = appTheme == "none" ? "System" : appTheme.capitalized
+            print("Updated Current Theme: \(currentTheme)") 
+        }
+
+        // MARK: - Views
+        var themeLabel: some View {
+            Menu {
+                Button {
+                    selectTheme("System", appTheme: "none")
+                } label: {
+                    themeMenuItem("System", isSelected: currentTheme == "System")
+                }
+                
+                Button {
+                    selectTheme("Light", appTheme: "light")
+                } label: {
+                    themeMenuItem("Light", isSelected: currentTheme == "Light")
+                }
+                
+                Button {
+                    selectTheme("Dark", appTheme: "dark")
+                } label: {
+                    themeMenuItem("Dark", isSelected: currentTheme == "Dark")
+                }
+            } label: {
+                HStack {
+                    Text("Theme")
+                    Spacer()
+                    Text("\(currentTheme)")
+                        .fontWeight(.light)
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(Color.black)
+                }
+                .padding(.horizontal)
+                .padding(.top)
+            }
+            .menuStyle(DefaultMenuStyle())
+        }
+        
+        // MARK: - Helper Functions
+        private func selectTheme(_ theme: String, appTheme: String) {
+            currentTheme = theme
+            self.appTheme = appTheme
+            updateCurrentTheme()
+        }
+
+        private func themeMenuItem(_ title: String, isSelected: Bool) -> some View {
+            HStack {
+                if isSelected {
+                    Image(systemName: "checkmark")
+                }
+                Text(title)
+                Spacer()
+            }
+        }
     }
-}
-#Preview {
-    SettingsView()
-    
-}
+
+    #Preview {
+        SettingsView()
+    }
 
 
 
