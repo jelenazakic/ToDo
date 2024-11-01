@@ -11,7 +11,7 @@ struct SettingsView: View {
     //  MARK: - Properties
     @State private var shouldShowMenu = true
     @State private var currentTheme = "System"
-        
+   
     @AppStorage("appTheme") private var appTheme: String = "none"
 
         // MARK: - Lifecycle

@@ -10,15 +10,30 @@ import SwiftUI
 struct ListRowView: View {
     
     let item: ItemModel
+    @AppStorage("appTheme") private var appTheme: String = "dark"
     
     var body: some View {
         HStack{
             
             Image(systemName: item.isCompleted ?  "checkmark":"circle.dotted" )
-            Text(item.title).strikethrough(item.isCompleted, color: .black)
+            Text(item.title)
+                .strikethrough(item.isCompleted, color: strikethroughColor())
+                .padding()
         }
-        
     }
+        private func strikethroughColor() -> Color {
+               if appTheme == "dark" {
+                   print("Test")
+                   return .white
+               } else if appTheme == "light" {
+                   
+                   return .black
+               } else {
+                   return .primary
+               }
+           }
+        
+    
     
     struct ListRowView_Previews: PreviewProvider{
         

@@ -13,9 +13,7 @@
 		32104E8B2C89BA3100705211 /* MainListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8A2C89BA3100705211 /* MainListView.swift */; };
 		32104E8D2C89BD6300705211 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8C2C89BD6300705211 /* ListRowView.swift */; };
 		32104E902C89D74300705211 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8F2C89D74300705211 /* ItemModel.swift */; };
-		32194F1B2CBEFA6A00EA0683 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32194F1A2CBEFA6A00EA0683 /* CoreData.framework */; };
 		32194F202CBEFB2200EA0683 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 32194F1E2CBEFB2200EA0683 /* Model.xcdatamodeld */; };
-		32194F242CBEFC2800EA0683 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32194F232CBEFC2000EA0683 /* CoreDataStack.swift */; };
 		3243D9642C9A13D60079910C /* AddNewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3243D9632C9A13D60079910C /* AddNewListView.swift */; };
 		32A213712C90DF370094923E /* ToDoHomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A213702C90DF370094923E /* ToDoHomePage.swift */; };
 		32BF063C2CA2D610001C2114 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32BF063B2CA2D610001C2114 /* SettingsView.swift */; };
@@ -34,7 +32,6 @@
 		32104E8F2C89D74300705211 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
 		32194F1A2CBEFA6A00EA0683 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		32194F1F2CBEFB2200EA0683 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		32194F232CBEFC2000EA0683 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3243D9632C9A13D60079910C /* AddNewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewListView.swift; sourceTree = "<group>"; };
 		32A213702C90DF370094923E /* ToDoHomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoHomePage.swift; sourceTree = "<group>"; };
 		32BF063B2CA2D610001C2114 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -52,7 +49,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32194F1B2CBEFA6A00EA0683 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				32104E7B2C88ECCE00705211 /* ToDoApp.swift */,
-				32194F232CBEFC2000EA0683 /* CoreDataStack.swift */,
 				32104E8E2C89D72100705211 /* Models */,
 				32104E892C89BA0800705211 /* Views */,
 				32104E7F2C88ECD300705211 /* Assets.xcassets */,
@@ -177,6 +172,8 @@
 				Base,
 			);
 			mainGroup = 32104E6F2C88ECCD00705211;
+			packageReferences = (
+			);
 			productRefGroup = 32104E792C88ECCE00705211 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -206,7 +203,6 @@
 				32E911DC2C923C2300157A08 /* ListModel.swift in Sources */,
 				3243D9642C9A13D60079910C /* AddNewListView.swift in Sources */,
 				32104E7C2C88ECCE00705211 /* ToDoApp.swift in Sources */,
-				32194F242CBEFC2800EA0683 /* CoreDataStack.swift in Sources */,
 				32104E8B2C89BA3100705211 /* MainListView.swift in Sources */,
 				32BF063C2CA2D610001C2114 /* SettingsView.swift in Sources */,
 				32C466BC2C8E4A3D00C2AD1E /* AddNewItemView.swift in Sources */,

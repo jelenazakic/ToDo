@@ -60,16 +60,14 @@ struct MainListView: View {
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
-        .sheet(
-            isPresented: $isPresented,
-            content: {
+        .sheet(isPresented: $isPresented){
                 
-                AddNewItemView(isPresented: $isPresented,
+                AddNewItemView(isPresented: isPresented,
                                newItem: $newItem,
                                items: $items)
                 .presentationDetents([.fraction(0.3), .fraction(0.2)])
             }
-        )
+        .presentationDetents([.fraction(0.3), .fraction(0.2)])
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing)
             {

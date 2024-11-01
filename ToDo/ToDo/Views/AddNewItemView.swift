@@ -9,7 +9,8 @@ import SwiftUI
 
 struct AddNewItemView: View {
     
-    @Binding var isPresented:Bool
+    
+    @State var isPresented:Bool = false
     @Binding var newItem: String
     @Binding var items: [ItemModel]
     
@@ -27,18 +28,18 @@ struct AddNewItemView: View {
                               isCompleted: false))
                 isPresented = true
             }
-            .frame(width: 100, height: 20)
+    
+        
             .padding(5)
             .font(.system(size: 15,weight: .bold,
                           design: .default))
             .cornerRadius(20)
-            .buttonStyle(GrowingButton())
+    
         }
     }
 }
 
 #Preview {
-    AddNewItemView(isPresented: .constant(false),
-                   newItem: .constant(""),
+    AddNewItemView(newItem: .constant(""),
                    items: .constant([ItemModel(title: "Sample 1", isCompleted: false)]))
 }
