@@ -27,9 +27,12 @@ struct MainListView: View {
             
             ForEach($items) { $item in
                 if( item.id == editingItemId){
-                    TextField("", text: $item.title, onCommit: {
-                        editingItemId = nil
-                    })
+                    TextField(
+                        "",
+                        text: $item.title,
+                        onCommit: {
+                            editingItemId = nil
+                        })
                     .focused($focusItemId, equals: item.id)
                     .onAppear{
                         focusItemId = item.id

@@ -6,12 +6,27 @@
 //
 
 import Foundation
+import GRDB
 
-struct ListModel: Identifiable{
+struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
    
-    let id: String = UUID().uuidString
-    var name:String
-    var tasks: [ItemModel]
+    //  MARK: - Properties
+    
+    let id: UUID
+    let name: String
+    let tasks: [ItemModel]
 
+    //  MARK: - Lifecycle
+    
+    init(
+        id: UUID = UUID(),
+        name: String,
+        tasks: [ItemModel]
+    ) {
+        self.id = id
+        self.name = name
+        self.tasks = tasks
+    }
+    
 }
 
