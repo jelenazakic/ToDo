@@ -10,7 +10,7 @@ import SwiftUI
 struct AddNewItemView: View {
     
     
-    @State var isPresented:Bool = false
+    @Binding var isPresented:Bool
     @Binding var newItem: String
     @Binding var items: [ItemModel]
     
@@ -23,23 +23,28 @@ struct AddNewItemView: View {
                 .padding(20)
             
             Button("Save"){
-                items.append(
-                    ItemModel(title: newItem,
-                              isCompleted: false))
-                isPresented = true
+                
+                    items.append(
+                        ItemModel(title: newItem,
+                                  isCompleted: false))
+                    isPresented = false
             }
-    
-        
+            .disabled(newItem.trimmingCharacters(in: .whitespaces).isEmpty)
+            .frame(width: 80, height: 20)
             .padding(5)
-            .font(.system(size: 15,weight: .bold,
-                          design: .default))
+            .font(.system(size: 15, weight: .bold))
+            .foregroundColor(.white)
+            .background(Color.blue)
             .cornerRadius(20)
-    
+            .buttonStyle(GrowingButton())
         }
     }
 }
 
 #Preview {
-    AddNewItemView(newItem: .constant(""),
-                   items: .constant([ItemModel(title: "Sample 1", isCompleted: false)]))
+    AddNewItemView(isPresented: .constant(false),
+                   newItem: .constant(""),
+                   items: .constant([ItemModel(
+                    title: "Sample 1",
+                    isCompleted: false)]))
 }

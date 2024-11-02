@@ -11,7 +11,7 @@ struct MainListView: View {
     
     //  MARK: - Properties
     @State private var newItem :String = ""
-    @State private var isPresented: Bool = false
+    @State private var isPresentedNewItemSheet: Bool = false
     @State var isCompleted: Bool = false
     @State var items: [ItemModel] = []
     @State private var isAnimatedPlusButton = false
@@ -60,19 +60,20 @@ struct MainListView: View {
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
-        .sheet(isPresented: $isPresented){
+        .sheet(isPresented: $isPresentedNewItemSheet){
                 
-                AddNewItemView(isPresented: isPresented,
-                               newItem: $newItem,
-                               items: $items)
-                .presentationDetents([.fraction(0.3), .fraction(0.2)])
+            AddNewItemView(isPresented: $isPresentedNewItemSheet,
+                            newItem: $newItem,
+                            items: $items)
+            .presentationDetents([.medium])
+                
             }
-        .presentationDetents([.fraction(0.3), .fraction(0.2)])
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing)
             {
                 Button(action: {
-                    isPresented = true
+                
+                    isPresentedNewItemSheet = true
                     newItem = ""
                 })
                 {

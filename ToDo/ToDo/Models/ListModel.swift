@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ListModel:Identifiable{
+struct ListModel: Identifiable{
    
     let id: String = UUID().uuidString
     var name:String

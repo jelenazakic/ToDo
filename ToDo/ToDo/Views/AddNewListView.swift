@@ -30,29 +30,25 @@ struct AddNewListView: View {
     private var saveNewListButton: some View {
         Button(action: onSaveNewListButtonTap) {
             Text("Save")
-                .frame(width: 100, height: 20)
+                .frame(width: 80, height: 1)
                 .padding(5)
                 .font(.system(size: 15, weight: .bold))
                 .foregroundColor(.white)
                 .background(Color.blue)
                 .cornerRadius(20)
-                .buttonStyle(GrowingButton())
-                
+               
                 
         }
+        .buttonStyle(GrowingButton())
     }
     
     // MARK: - Utility
     private func onSaveNewListButtonTap() {
-        
-        
         let newList = ListModel(name: newNameList, tasks: [])
         lists.append(newList)
         newNameList = ""
         isPresented = false
     }
-    
-   
 }
 struct GrowingButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
@@ -61,7 +57,7 @@ struct GrowingButton: ButtonStyle {
             .background(.blue)
             .foregroundStyle(.white)
             .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 2.2 : 1)
+            .scaleEffect(configuration.isPressed ? 1.5 : 1)
             .animation(.easeOut(duration: 1.2), value: configuration.isPressed)
     }
 }
