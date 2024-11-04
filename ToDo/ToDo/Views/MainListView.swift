@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MainListView: View {
     
     //  MARK: - Properties
+    @ObservedObject private var databaseManager = DatabaseManager.shared
     @State private var newItem :String = ""
     @State private var isPresentedNewItemSheet: Bool = false
     @State var isCompleted: Bool = false
@@ -27,13 +29,11 @@ struct MainListView: View {
             
             ForEach($items) { $item in
                 if( item.id == editingItemId){
-                    TextField(
-                        "",
-                        text: $item.title,
-                        onCommit: {
-                            editingItemId = nil
-                        })
-                    .focused($focusItemId, equals: item.id)
+                    TextField("", text: $item.title, onCommit: {
+                        updateTask(item)
+                        editingItemId = nil
+                    })
+                    .focused($focusItemId, equals: item.id ?? UUID())
                     .onAppear{
                         focusItemId = item.id
                     }
@@ -42,7 +42,8 @@ struct MainListView: View {
                             focusItemId = item.id
                         }
                     }
-                } else{
+                }
+                else{
                     
                     ListRowView(item: item)
                         .onTapGesture {
@@ -56,26 +57,24 @@ struct MainListView: View {
                         }
                 }
             }
-            .onDelete(perform: { indexSet in
-                deleteItem(indexSet: indexSet)
-            })
+            .onDelete(perform: deleteItem)
         }
         .scrollContentBackground(.hidden)
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
         .sheet(isPresented: $isPresentedNewItemSheet){
-                
+            
             AddNewItemView(isPresented: $isPresentedNewItemSheet,
-                            newItem: $newItem,
-                            items: $items)
+                           newItem: $newItem,
+                           items: $items)
             .presentationDetents([.medium])
-                
-            }
+            
+        }
         .toolbar{
             ToolbarItem(placement: .navigationBarTrailing)
             {
                 Button(action: {
-                
+                    
                     isPresentedNewItemSheet = true
                     newItem = ""
                 })
@@ -87,20 +86,37 @@ struct MainListView: View {
                 }
             }
         }
+        .onAppear{
+            loadTask()
+        }
     }
     //  MARK: - Views
     
     //  MARK: - Utility
     
-    func deleteItem (indexSet: IndexSet){
-        items.remove(atOffsets: indexSet)
+    func loadTask() {
+        items = databaseManager.fetchAllTasks()
+        
+    }
+    
+    func updateTask(_ item: ItemModel) {
+        databaseManager.updateTask(task: item)
+        loadTask()
+        
+    }
+    
+    func deleteItem (at offsets : IndexSet){
+        offsets.forEach {index in
+            let item = items[index]
+            databaseManager.deleteTask(id: item.id)
+            items.remove(at: index)
+        }
+        databaseManager.loadTask()
     }
     
     func markAsCompleted(item: ItemModel) {
-        if let index = items.firstIndex(where: {
-            $0.id == item.id }) {
-            items[index].isCompleted = !items[index].isCompleted
-        }
+        databaseManager.markTaskAsCompleted(task: item)
+        loadTask()
     }
 }
 

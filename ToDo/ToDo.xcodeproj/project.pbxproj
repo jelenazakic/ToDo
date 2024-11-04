@@ -50,7 +50,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				32194F1B2CBEFA6A00EA0683 /* CoreData.framework in Frameworks */,
 				5F2957522CD4E3FA005499AE /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,7 +80,6 @@
 				32104E8E2C89D72100705211 /* Models */,
 				32104E812C88ECD300705211 /* Preview Content */,
 				32104E892C89BA0800705211 /* Views */,
-				32194F232CBEFC2000EA0683 /* CoreDataStack.swift */,
 				32104E7B2C88ECCE00705211 /* ToDoApp.swift */,
 				32104E7F2C88ECD300705211 /* Assets.xcassets */,
 				32194F1E2CBEFB2200EA0683 /* Model.xcdatamodeld */,

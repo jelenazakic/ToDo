@@ -23,10 +23,11 @@ struct AddNewItemView: View {
                 .padding(20)
             
             Button("Save"){
-                
-                    items.append(
-                        ItemModel(title: newItem,
-                                  isCompleted: false))
+                DatabaseManager.shared.insertTask(title: newItem)
+                items = DatabaseManager.shared.fetchAllTasks()
+                    //items.append(
+                      //  ItemModel(title: newItem,
+                       //           isCompleted: false))
                     isPresented = false
             }
             .disabled(newItem.trimmingCharacters(in: .whitespaces).isEmpty)
