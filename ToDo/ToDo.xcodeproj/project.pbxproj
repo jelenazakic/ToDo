@@ -21,6 +21,7 @@
 		32D139C82CA56EB200521C69 /* ThemeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32D139C72CA56EAE00521C69 /* ThemeModel.swift */; };
 		32E911DC2C923C2300157A08 /* ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E911DB2C923C2300157A08 /* ListModel.swift */; };
 		5F2957522CD4E3FA005499AE /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 5F2957512CD4E3FA005499AE /* GRDB */; };
+		5F9F721D2CDA2EDB00FFAE36 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F9F721C2CDA2EDB00FFAE36 /* DatabaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		32C466BB2C8E4A3D00C2AD1E /* AddNewItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewItemView.swift; sourceTree = "<group>"; };
 		32D139C72CA56EAE00521C69 /* ThemeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeModel.swift; sourceTree = "<group>"; };
 		32E911DB2C923C2300157A08 /* ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListModel.swift; sourceTree = "<group>"; };
+		5F9F721C2CDA2EDB00FFAE36 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -77,6 +79,7 @@
 		32104E7A2C88ECCE00705211 /* ToDo */ = {
 			isa = PBXGroup;
 			children = (
+				5F9F721B2CDA2ED200FFAE36 /* Business Logic */,
 				32104E8E2C89D72100705211 /* Models */,
 				32104E812C88ECD300705211 /* Preview Content */,
 				32104E892C89BA0800705211 /* Views */,
@@ -125,6 +128,14 @@
 				32194F1A2CBEFA6A00EA0683 /* CoreData.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5F9F721B2CDA2ED200FFAE36 /* Business Logic */ = {
+			isa = PBXGroup;
+			children = (
+				5F9F721C2CDA2EDB00FFAE36 /* DatabaseManager.swift */,
+			);
+			path = "Business Logic";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -211,6 +222,7 @@
 				32C466BC2C8E4A3D00C2AD1E /* AddNewItemView.swift in Sources */,
 				32D139C82CA56EB200521C69 /* ThemeModel.swift in Sources */,
 				32104E902C89D74300705211 /* ItemModel.swift in Sources */,
+				5F9F721D2CDA2EDB00FFAE36 /* DatabaseManager.swift in Sources */,
 				32A213712C90DF370094923E /* ToDoHomePage.swift in Sources */,
 				32194F202CBEFB2200EA0683 /* Model.xcdatamodeld in Sources */,
 				32104E8D2C89BD6300705211 /* ListRowView.swift in Sources */,

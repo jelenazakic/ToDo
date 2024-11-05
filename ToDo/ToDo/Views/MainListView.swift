@@ -11,14 +11,14 @@ import Combine
 struct MainListView: View {
     
     //  MARK: - Properties
-    @ObservedObject private var databaseManager = DatabaseManager.shared
-    @State private var newItem :String = ""
-    @State private var isPresentedNewItemSheet: Bool = false
+    var databaseManager = DatabaseManager.shared
+    @State var newItem :String = ""
+    @State var isPresentedNewItemSheet: Bool = false
     @State var isCompleted: Bool = false
     @State var items: [ItemModel] = []
-    @State private var isAnimatedPlusButton = false
-    @State private var editingItemId: UUID? = nil
-    @FocusState private var focusItemId: UUID?
+    @State var isAnimatedPlusButton = false
+    @State var editingItemId: UUID? = nil
+    @FocusState var focusItemId: UUID?
     
     let navigationTitle: String
     
@@ -111,12 +111,12 @@ struct MainListView: View {
             databaseManager.deleteTask(id: item.id)
             items.remove(at: index)
         }
-        databaseManager.loadTask()
     }
     
     func markAsCompleted(item: ItemModel) {
-        databaseManager.markTaskAsCompleted(task: item)
-        loadTask()
+        var updatedTask = item
+        updatedTask.isCompleted.toggle()
+        updateTask(updatedTask)
     }
 }
 
