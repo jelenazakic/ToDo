@@ -26,7 +26,6 @@ struct MainListView: View {
     
     var body: some View {
         List {
-            
             ForEach($items) { $item in
                 if( item.id == editingItemId){
                     TextField("", text: $item.title, onCommit: {
@@ -43,8 +42,7 @@ struct MainListView: View {
                         }
                     }
                 }
-                else{
-                    
+                else {
                     ListRowView(item: item)
                         .onTapGesture {
                             markAsCompleted(item: item)

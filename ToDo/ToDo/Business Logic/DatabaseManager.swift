@@ -20,7 +20,8 @@ class DatabaseManager {
     
     init() {
         setupDatabase()
-        createTaskTable()
+        createListsTable()
+        createTasksTable()
     }
     
     func setupDatabase() {
@@ -36,22 +37,37 @@ class DatabaseManager {
         }
     }
     
-    //  MARK: - Tasks
+    //  MARK: - List
     
-    private func createTaskTable() {
+    private func createListsTable() {
         do {
             try dbQueue?.write { db in
-                try db.create(table: "task", ifNotExists: true) { t in
-                    t.column("id", .text).primaryKey().notNull()
-                    t.column("title", .text).notNull()
-                    t.column("isCompleted", .boolean).notNull().defaults(to: false)
+                try db.create(table: "list", ifNotExists: true) { t in
+                    
                 }
             }
-            print("Task table created successfully.")
         } catch {
             print("Failed to create task table: \(error)")
         }
     }
+    
+    func insertList(title: String) {
+        
+    }
+    
+    func fetchAllLists() -> [ListModel] {
+        return []
+    }
+    
+    func updateList(list: ListModel) {
+        
+    }
+    
+    func deleteList(id: UUID) {
+        
+    }
+    
+    //  MARK: - Tasks
     
     func insertTask(title: String) {
         let task = ItemModel(
@@ -101,6 +117,21 @@ class DatabaseManager {
             }
         } catch {
             print("Failed to delete task: \(error)")
+        }
+    }
+    
+    private func createTasksTable() {
+        do {
+            try dbQueue?.write { db in
+                try db.create(table: "task", ifNotExists: true) { t in
+                    t.column("id", .text).primaryKey().notNull()
+                    t.column("title", .text).notNull()
+                    t.column("isCompleted", .boolean).notNull().defaults(to: false)
+                }
+            }
+            print("Task table created successfully.")
+        } catch {
+            print("Failed to create task table: \(error)")
         }
     }
 }
