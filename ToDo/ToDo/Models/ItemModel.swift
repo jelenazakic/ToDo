@@ -9,7 +9,7 @@ import GRDB
 import Combine
 
 
-struct ItemModel: Codable, FetchableRecord, PersistableRecord, Identifiable {
+struct ItemModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
     var id: UUID
     var title: String
     var isCompleted: Bool

@@ -27,6 +27,8 @@ struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
         self.name = name
         self.tasks = tasks
     }
-    
+    static var databaseTableName: String {
+        return "list"
+    }
 }
 

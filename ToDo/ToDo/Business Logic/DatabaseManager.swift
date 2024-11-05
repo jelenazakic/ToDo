@@ -43,27 +43,65 @@ class DatabaseManager {
         do {
             try dbQueue?.write { db in
                 try db.create(table: "list", ifNotExists: true) { t in
-                    
+                    t.column("id",.text).primaryKey().notNull()
+                    t.column("name", .text).notNull()
                 }
             }
+            print("List table created successfully.")
         } catch {
-            print("Failed to create task table: \(error)")
+            print("Failed to create list table: \(error)")
         }
     }
     
     func insertList(title: String) {
-        
+        let list = ListModel(
+            id: UUID(),
+            name: title,
+            tasks: []
+            )
+        do {
+            try dbQueue.write { db in
+                try list.insert(db)
+                print("List inserted: \(list.name)")
+            }
+        } catch {
+            print("Failed to insert list: \(error)")
+        }
     }
     
+    
     func fetchAllLists() -> [ListModel] {
-        return []
+        var lists = [ListModel]()
+        do {
+            try dbQueue.read { db in
+                lists = try ListModel.fetchAll(db)
+            }
+        } catch {
+            print("Failed to fetch lists: \(error)")
+        }
+        return lists
     }
     
     func updateList(list: ListModel) {
-        
+        do {
+            try dbQueue.write { db in
+                try list.update(db)
+                print("List updated: \(list.name)")
+            }
+        } catch {
+            print("Failed to update list: \(error)")
+        }
     }
     
     func deleteList(id: UUID) {
+        do {
+            try dbQueue.write { db in
+                try ListModel.deleteOne(db, key: id.uuidString)
+                print("List deleted:")
+            }
+        } catch {
+            print("Failed to delete list: \(error)")
+        }
         
     }
     
@@ -124,9 +162,14 @@ class DatabaseManager {
         do {
             try dbQueue?.write { db in
                 try db.create(table: "task", ifNotExists: true) { t in
-                    t.column("id", .text).primaryKey().notNull()
+                    t.column("id", .text)
+                        .primaryKey()
+                        .notNull()
+                        .references("list",onDelete: .cascade)
                     t.column("title", .text).notNull()
-                    t.column("isCompleted", .boolean).notNull().defaults(to: false)
+                    t.column("isCompleted", .boolean)
+                        .notNull()
+                        .defaults(to: false)
                 }
             }
             print("Task table created successfully.")
