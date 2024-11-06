@@ -13,15 +13,18 @@ struct ItemModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
     var id: UUID
     var title: String
     var isCompleted: Bool
+    var listId: UUID
 
     init(
         id: UUID = UUID(),
         title: String,
-        isCompleted: Bool
+        isCompleted: Bool,
+        listId: UUID
     ) {
         self.id = id
         self.title = title
         self.isCompleted = isCompleted
+        self.listId = listId
     }
 
     static var databaseTableName: String {

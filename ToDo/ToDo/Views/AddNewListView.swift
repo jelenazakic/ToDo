@@ -7,6 +7,7 @@ struct AddNewListView: View {
     @Binding var newNameList: String 
     @Binding var lists: [ListModel]
     @Binding var isPresented: Bool
+    var listId: UUID
     
     // MARK: - Lifecycle
     var body: some View {
@@ -36,34 +37,36 @@ struct AddNewListView: View {
                 .foregroundColor(.white)
                 .background(Color.blue)
                 .cornerRadius(20)
-               
-                
         }
         .buttonStyle(GrowingButton())
     }
     
     // MARK: - Utility
     private func onSaveNewListButtonTap() {
-        let newList = ListModel(name: newNameList, tasks: [])
-        lists.append(newList)
-        newNameList = ""
-        isPresented = false
+        if let newListId = DatabaseManager.shared.insertList(title: newNameList) {
+            lists = DatabaseManager.shared.fetchAllLists()
+            isPresented = false
+        }
+        //  lists.append(newList)
+        // newNameList = ""
     }
-}
-struct GrowingButton: ButtonStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding()
-            .background(.blue)
-            .foregroundStyle(.white)
-            .clipShape(Capsule())
-            .scaleEffect(configuration.isPressed ? 1.5 : 1)
-            .animation(.easeOut(duration: 1.2), value: configuration.isPressed)
+    
+    struct GrowingButton: ButtonStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            configuration.label
+                .padding()
+                .background(.blue)
+                .foregroundStyle(.white)
+                .clipShape(Capsule())
+                .scaleEffect(configuration.isPressed ? 1.5 : 1)
+                .animation(.easeOut(duration: 1.2), value: configuration.isPressed)
+        }
     }
 }
 #Preview {
     AddNewListView(newNameList: .constant(""),
                    lists: .constant([]),
-                   isPresented: .constant(false))
+                   isPresented: .constant(false),
+                   listId: UUID())
 }
 

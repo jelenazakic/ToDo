@@ -53,19 +53,18 @@ class DatabaseManager {
         }
     }
     
-    func insertList(title: String) {
-        let list = ListModel(
-            id: UUID(),
-            name: title,
-            tasks: []
-            )
+    func insertList(title: String) -> UUID? {
+        let listId =  UUID()
+        let list = ListModel(id: listId, name: title)
         do {
             try dbQueue.write { db in
                 try list.insert(db)
                 print("List inserted: \(list.name)")
             }
+            return listId
         } catch {
             print("Failed to insert list: \(error)")
+            return nil
         }
     }
     
@@ -81,6 +80,19 @@ class DatabaseManager {
         }
         return lists
     }
+    
+    func fetchAllTaskInList (forListId listId: UUID) -> [ItemModel] {
+        var tasks: [ItemModel] = []
+            do {
+                try dbQueue?.read { db in
+                    tasks = try ItemModel.fetchAll(db, sql: "SELECT * FROM item WHERE listId = ?", arguments: [listId.uuidString])
+                }
+            } catch {
+                print("Failed to fetch tasks: \(error)")
+                
+            }
+            return tasks
+        }
     
     func updateList(list: ListModel) {
         do {
@@ -107,11 +119,12 @@ class DatabaseManager {
     
     //  MARK: - Tasks
     
-    func insertTask(title: String) {
+    func insertTask(title: String, listId: UUID) {
         let task = ItemModel(
             id: UUID(),
             title: title,
-            isCompleted: false
+            isCompleted: false,
+            listId: listId
         )
         
         do {
@@ -165,11 +178,13 @@ class DatabaseManager {
                     t.column("id", .text)
                         .primaryKey()
                         .notNull()
-                        .references("list",onDelete: .cascade)
                     t.column("title", .text).notNull()
                     t.column("isCompleted", .boolean)
                         .notNull()
                         .defaults(to: false)
+                    t.column("listId", .text)
+                        .notNull()
+                        .references("list",onDelete: .cascade)
                 }
             }
             print("Task table created successfully.")

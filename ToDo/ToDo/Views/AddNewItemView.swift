@@ -24,12 +24,17 @@ struct AddNewItemView: View {
                 .padding(20)
             
             Button("Save"){
-                DatabaseManager.shared.insertTask(title: newItem)
-                items = DatabaseManager.shared.fetchAllTasks()
+                if let listId = DatabaseManager.shared.insertList(title: "New list"){
+                    DatabaseManager.shared.insertTask(title: newItem, listId: listId)
+                    items = DatabaseManager.shared.fetchAllTaskInList(forListId: listId)
+                    isPresented = false
+                }
+                else {
+                    print("Failed to create list and add tasks.")
+                }
                 //items.append(
                 //  ItemModel(title: newItem,
                 //           isCompleted: false))
-                isPresented = false
             }
             .disabled(newItem.trimmingCharacters(in: .whitespaces).isEmpty)
             .frame(width: 80, height: 20)
@@ -38,7 +43,7 @@ struct AddNewItemView: View {
             .foregroundColor(.white)
             .background(Color.blue)
             .cornerRadius(20)
-            .buttonStyle(GrowingButton())
+            //.buttonStyle(GrowingButton())
         }
     }
 }
@@ -50,27 +55,33 @@ struct AddNewItemView: View {
         items: .constant([
             ItemModel(
                 title: "Sample 1",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             ),
             ItemModel(
                 title: "Sample 2",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             ),
             ItemModel(
                 title: "Sample 3",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             ),
             ItemModel(
                 title: "Sample 4",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             ),
             ItemModel(
                 title: "Sample 5",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             ),
             ItemModel(
                 title: "Sample 6",
-                isCompleted: false
+                isCompleted: false,
+                listId: UUID()
             )
         ])
     )

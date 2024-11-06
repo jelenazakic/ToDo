@@ -10,11 +10,11 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
-    
+    var databaseManager = DatabaseManager.shared
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
     @State var isPresentedSheetSettings: Bool = false
-    @State private var newList = ListModel(name: "", tasks: [])
+    @State private var newList = ListModel(name: "")
     @State var items: [ItemModel] = []
     @State var newNameList: String = ""
     @State private var isHovered = false
@@ -49,16 +49,16 @@ struct ToDoHomePage: View {
                             listRow(for: list)
                         }
                     }
-                    .onDelete(perform: { indexSet in
-                        deleteList(at: indexSet)
-                    })
+                    .onDelete(perform: deleteList)
                 }
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(
                         newNameList: $newNameList,
                         lists: $lists,
-                        isPresented: $isPresentedSheetNewList
+                        isPresented: $isPresentedSheetNewList,
+                        listId: UUID()
+                        
                     )
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
                 }
@@ -83,7 +83,23 @@ struct ToDoHomePage: View {
             .tint(Color.blue)
         }
     }
+    //MARK: - Utility
+    func loadList() {
+        lists = databaseManager.fetchAllLists()
+    }
     
+    func updateList (_ list: ListModel) {
+        databaseManager.updateList(list: list)
+        loadList()
+    }
+    
+    func deleteList (at offsets: IndexSet) {
+        offsets.forEach { index in
+            let list = lists[index]
+            databaseManager.deleteList(id: list.id)
+        }
+        
+    }
     private func listRow(for list: ListModel) -> some View {
         HStack {
             Image(systemName: "checklist")
@@ -134,9 +150,9 @@ struct ToDoHomePage: View {
         return items.count
     }
     
-    private func deleteList(at offsets: IndexSet) {
-        lists.remove(atOffsets: offsets) // Removes items from the lists array
-    }
+ //   private func deleteList(at offsets: IndexSet) {
+ //       lists.remove(atOffsets: offsets) // Removes items from the lists array
+  //  }
 }
 
 
