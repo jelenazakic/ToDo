@@ -21,19 +21,17 @@ struct ListRowView: View {
                 .padding()
         }
     }
-        private func strikethroughColor() -> Color {
-               if appTheme == "dark" {
-                   print("Test")
-                   return .white
-               } else if appTheme == "light" {
-                   
-                   return .black
-               } else {
-                   return .primary
-               }
-           }
-        
-    
+    private func strikethroughColor() -> Color {
+        if appTheme == "dark" {
+            print("Test")
+            return .white
+        } else if appTheme == "light" {
+            
+            return .black
+        } else {
+            return .primary
+        }
+    }
     
     struct ListRowView_Previews: PreviewProvider{
         

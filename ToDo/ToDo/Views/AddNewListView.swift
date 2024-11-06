@@ -4,7 +4,7 @@ struct AddNewListView: View {
     
     // MARK: - Properties
     
-    @Binding var newNameList: String 
+    @Binding var newNameList: String
     @Binding var lists: [ListModel]
     @Binding var isPresented: Bool
     var listId: UUID
@@ -14,6 +14,7 @@ struct AddNewListView: View {
         
         VStack {
             newListTextField
+            
             saveNewListButton
         }
         

@@ -31,14 +31,14 @@ class DatabaseManager {
                 .appendingPathComponent("tasks.sqlite")
             
             dbQueue = try DatabaseQueue(path: databaseURL.path)
+    
             print("Database successfully set up at: \(databaseURL.path)")
         } catch {
             print("Database setup failed: \(error)")
         }
+        
     }
-    
     //  MARK: - List
-    
     private func createListsTable() {
         do {
             try dbQueue?.write { db in
@@ -62,46 +62,52 @@ class DatabaseManager {
                 print("List inserted: \(list.name)")
             }
             return listId
+            
         } catch {
             print("Failed to insert list: \(error)")
             return nil
         }
     }
     
-    
     func fetchAllLists() -> [ListModel] {
         var lists = [ListModel]()
         do {
             try dbQueue.read { db in
                 lists = try ListModel.fetchAll(db)
+                
             }
         } catch {
             print("Failed to fetch lists: \(error)")
+            return []
+            
         }
         return lists
     }
     
     func fetchAllTaskInList (forListId listId: UUID) -> [ItemModel] {
         var tasks: [ItemModel] = []
-            do {
-                try dbQueue?.read { db in
-                    tasks = try ItemModel.fetchAll(db, sql: "SELECT * FROM item WHERE listId = ?", arguments: [listId.uuidString])
-                }
-            } catch {
-                print("Failed to fetch tasks: \(error)")
-                
+        do {
+            try dbQueue?.read { db in
+                tasks = try ItemModel.fetchAll(db,sql: "SELECT * FROM item WHERE listId = ?",
+                                               arguments: [listId.uuidString])
             }
-            return tasks
+        } catch {
+            print("Failed to fetch tasks: \(error)")
+            
         }
+        return tasks
+    }
     
     func updateList(list: ListModel) {
         do {
             try dbQueue.write { db in
                 try list.update(db)
                 print("List updated: \(list.name)")
+                
             }
         } catch {
             print("Failed to update list: \(error)")
+            
         }
     }
     
@@ -110,16 +116,18 @@ class DatabaseManager {
             try dbQueue.write { db in
                 try ListModel.deleteOne(db, key: id.uuidString)
                 print("List deleted:")
+                
             }
         } catch {
             print("Failed to delete list: \(error)")
+            
         }
-        
     }
     
     //  MARK: - Tasks
     
-    func insertTask(title: String, listId: UUID) {
+    func insertTask(title: String, listId: UUID) -> UUID? {
+        let taskId = UUID()
         let task = ItemModel(
             id: UUID(),
             title: title,
@@ -132,21 +140,25 @@ class DatabaseManager {
                 try task.insert(db)
                 print("Task inserted: \(task.title)")
             }
+            return taskId
+            
         } catch {
             print("Failed to insert task: \(error)")
+            return nil
         }
     }
     
-    func fetchAllTasks() -> [ItemModel] {
-        var tasks = [ItemModel]()
+    func fetchAllTasks(forListId listId: UUID) -> [ItemModel]? {
+        
         do {
-            try dbQueue.read { db in
-                tasks = try ItemModel.fetchAll(db)
+            let tasks = try dbQueue.read { db in
+                try ItemModel.fetchAll(db, sql: "SELECT * FROM task WHERE listId = ?", arguments: [listId])
             }
+            return tasks
         } catch {
             print("Failed to fetch tasks: \(error)")
+            return nil
         }
-        return tasks
     }
     
     func updateTask(task: ItemModel) {

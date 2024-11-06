@@ -33,9 +33,11 @@ struct MainListView: View {
                         editingItemId = nil
                     })
                     .focused($focusItemId, equals: item.id ?? UUID())
+                    
                     .onAppear{
                         focusItemId = item.id
                     }
+                    
                     .onChange(of: editingItemId) {
                         if editingItemId == item.id {
                             focusItemId = item.id
@@ -93,7 +95,7 @@ struct MainListView: View {
     //  MARK: - Utility
     
     func loadTask() {
-        items = databaseManager.fetchAllTasks()
+        items = databaseManager.fetchAllTasks(forListId: UUID()) ?? []
         
     }
     
@@ -117,8 +119,6 @@ struct MainListView: View {
         updateTask(updatedTask)
     }
 }
-
-
 #Preview {
     NavigationView{
         

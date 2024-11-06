@@ -14,7 +14,7 @@ struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
     
     let id: UUID
     let name: String
-    var tasks: [ItemModel] = []
+  //  var tasks: [ItemModel] = []
 
     //  MARK: - Lifecycle
     
@@ -24,7 +24,7 @@ struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
     ) {
         self.id = id
         self.name = name
-        self.tasks = DatabaseManager.shared.fetchAllTaskInList(forListId: id)
+      
     }
     static var databaseTableName: String {
         return "list"

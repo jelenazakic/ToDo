@@ -10,6 +10,7 @@ import SwiftUI
 struct ToDoHomePage: View {
     
     //  MARK: - Properties
+    
     var databaseManager = DatabaseManager.shared
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
@@ -43,14 +44,16 @@ struct ToDoHomePage: View {
                 List {
                     ForEach(filterLists) { list in
                         NavigationLink(destination: MainListView(
-                            items: list.tasks,
+                            // items: list.tasks,
                             navigationTitle: list.name)
                         ) {
+                            
                             listRow(for: list)
                         }
                     }
                     .onDelete(perform: deleteList)
                 }
+                
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(
@@ -58,7 +61,6 @@ struct ToDoHomePage: View {
                         lists: $lists,
                         isPresented: $isPresentedSheetNewList,
                         listId: UUID()
-                        
                     )
                     .presentationDetents([.fraction(0.3), .fraction(0.2)])
                 }
@@ -66,7 +68,6 @@ struct ToDoHomePage: View {
                     SettingsView()
                         .presentationDetents([.fraction(0.9)])
                         .edgesIgnoringSafeArea(.all)
-                    
                 }
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
@@ -76,6 +77,9 @@ struct ToDoHomePage: View {
                         addNewListButton
                     }
                 }
+                .onAppear{
+                    loadList()
+                }
                 .listStyle(PlainListStyle())
                 .navigationTitle("My Lists")
                 .searchable(text: $searchTerm, prompt: "Search List")
@@ -83,13 +87,17 @@ struct ToDoHomePage: View {
             .tint(Color.blue)
         }
     }
+    
     //MARK: - Utility
     func loadList() {
+        
         lists = databaseManager.fetchAllLists()
     }
     
     func updateList (_ list: ListModel) {
+        
         databaseManager.updateList(list: list)
+        
         loadList()
     }
     
@@ -109,12 +117,13 @@ struct ToDoHomePage: View {
                 .lineLimit(2)
                 .minimumScaleFactor(0.5)
             
-            Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .font(.callout)
-                .fontWeight(.light)
+            // Text("\(checkedCount(items: list.tasks)) / \(countAllTask(items: list.tasks))")
+            //    .frame(maxWidth: .infinity, alignment: .trailing)
+            //    .font(.callout)
+            //   .fontWeight(.light)
         }
         .padding(.vertical)
+        
     }
     
     private var addNewListButton: some View {
@@ -150,10 +159,11 @@ struct ToDoHomePage: View {
         return items.count
     }
     
- //   private func deleteList(at offsets: IndexSet) {
- //       lists.remove(atOffsets: offsets) // Removes items from the lists array
-  //  }
+    //   private func deleteList(at offsets: IndexSet) {
+    //       lists.remove(atOffsets: offsets) // Removes items from the lists array
+    //  }
 }
+
 
 
 #Preview {

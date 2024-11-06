@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GRDB
 
 @main
 struct ToDoApp: App {
@@ -20,7 +21,9 @@ struct ToDoApp: App {
                 ToDoHomePage()
                     .preferredColorScheme(colorScheme)
             }
+            
         }
+        
     }
     private var colorScheme: ColorScheme? {
            switch appTheme {
