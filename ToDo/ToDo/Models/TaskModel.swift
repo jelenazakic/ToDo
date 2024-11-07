@@ -9,7 +9,7 @@ import GRDB
 import Combine
 
 
-struct ItemModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
+struct TaskModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
     
     //  MARK: - Properties
     

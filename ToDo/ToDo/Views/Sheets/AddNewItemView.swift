@@ -12,7 +12,7 @@ struct AddNewItemView: View {
     //  MARK: - Properties
     
     @Binding var isPresented:Bool
-    @Binding var items: [ItemModel]
+    @Binding var listTasks: [TaskModel]
     @State var newItem: String = ""
     
     let listId: UUID
@@ -27,12 +27,12 @@ struct AddNewItemView: View {
             
             Button("Save") {
                 DatabaseManager.shared.insertTask(title: newItem, listId: listId)
-                items = DatabaseManager.shared.fetchAllTaskInList(forListId: listId)
+                
+                if let fetchedTasks = DatabaseManager.shared.fetchAllTasks(forListId: listId) {
+                    listTasks = fetchedTasks
+                }
+                
                 isPresented = false
-
-                //items.append(
-                //  ItemModel(title: newItem,
-                //           isCompleted: false))
             }
             .disabled(newItem.trimmingCharacters(in: .whitespaces).isEmpty)
             .frame(width: 80, height: 20)
@@ -49,33 +49,33 @@ struct AddNewItemView: View {
 #Preview {
     AddNewItemView(
         isPresented: .constant(false),
-        items: .constant([
-            ItemModel(
+        listTasks: .constant([
+            TaskModel(
                 title: "Sample 1",
                 isCompleted: false,
                 listId: UUID()
             ),
-            ItemModel(
+            TaskModel(
                 title: "Sample 2",
                 isCompleted: false,
                 listId: UUID()
             ),
-            ItemModel(
+            TaskModel(
                 title: "Sample 3",
                 isCompleted: false,
                 listId: UUID()
             ),
-            ItemModel(
+            TaskModel(
                 title: "Sample 4",
                 isCompleted: false,
                 listId: UUID()
             ),
-            ItemModel(
+            TaskModel(
                 title: "Sample 5",
                 isCompleted: false,
                 listId: UUID()
             ),
-            ItemModel(
+            TaskModel(
                 title: "Sample 6",
                 isCompleted: false,
                 listId: UUID()

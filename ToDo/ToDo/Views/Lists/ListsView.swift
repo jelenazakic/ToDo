@@ -11,12 +11,11 @@ struct ListsView: View {
     
     //  MARK: - Properties
     
-    var databaseManager = DatabaseManager.shared
     @State private var searchTerm = ""
     @State var isPresentedSheetNewList: Bool = false
     @State var isPresentedSheetSettings: Bool = false
     @State private var newList = ListModel(name: "")
-    @State var items: [ItemModel] = []
+    @State var items: [TaskModel] = []
     @State var newNameList: String = ""
     @State private var isHovered = false
     @State private var editingListId: UUID? = nil
@@ -43,9 +42,12 @@ struct ListsView: View {
             NavigationStack {
                 List {
                     ForEach(filterLists) { list in
-                        NavigationLink(destination: ListDetailsView(
-                            // items: list.tasks,
-                            navigationTitle: list.name)
+                        NavigationLink(
+                            destination:
+                                ListDetailsView(
+                                    navigationTitle: list.name,
+                                    listId: list.id
+                                )
                         ) {
                             
                             listRow(for: list)
@@ -53,7 +55,6 @@ struct ListsView: View {
                     }
                     .onDelete(perform: deleteList)
                 }
-                
                 .scrollContentBackground(.hidden)
                 .sheet(isPresented: $isPresentedSheetNewList) {
                     AddNewListView(
@@ -91,12 +92,12 @@ struct ListsView: View {
     //MARK: - Utility
     func loadList() {
         
-        lists = databaseManager.fetchAllLists()
+        lists = DatabaseManager.shared.fetchAllLists()
     }
     
     func updateList (_ list: ListModel) {
         
-        databaseManager.updateList(list: list)
+        DatabaseManager.shared.updateList(list: list)
         
         loadList()
     }
@@ -104,7 +105,7 @@ struct ListsView: View {
     func deleteList (at offsets: IndexSet) {
         offsets.forEach { index in
             let list = lists[index]
-            databaseManager.deleteList(id: list.id)
+            DatabaseManager.shared.deleteList(id: list.id)
         }
         
     }
@@ -151,11 +152,11 @@ struct ListsView: View {
             isHovered = hovering}
     }
     
-    func checkedCount(items: [ItemModel]) -> Int {
+    func checkedCount(items: [TaskModel]) -> Int {
         return items.filter { $0.isCompleted }.count
     }
     
-    func countAllTask(items: [ItemModel]) -> Int {
+    func countAllTask(items: [TaskModel]) -> Int {
         return items.count
     }
     

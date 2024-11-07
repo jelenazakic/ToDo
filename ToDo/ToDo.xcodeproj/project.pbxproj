@@ -12,7 +12,7 @@
 		32104E832C88ECD300705211 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32104E822C88ECD300705211 /* Preview Assets.xcassets */; };
 		32104E8B2C89BA3100705211 /* ListDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8A2C89BA3100705211 /* ListDetailsView.swift */; };
 		32104E8D2C89BD6300705211 /* ListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8C2C89BD6300705211 /* ListRowView.swift */; };
-		32104E902C89D74300705211 /* ItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8F2C89D74300705211 /* ItemModel.swift */; };
+		32104E902C89D74300705211 /* TaskModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32104E8F2C89D74300705211 /* TaskModel.swift */; };
 		32194F202CBEFB2200EA0683 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 32194F1E2CBEFB2200EA0683 /* Model.xcdatamodeld */; };
 		3243D9642C9A13D60079910C /* AddNewListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3243D9632C9A13D60079910C /* AddNewListView.swift */; };
 		32A213712C90DF370094923E /* ListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A213702C90DF370094923E /* ListsView.swift */; };
@@ -31,7 +31,7 @@
 		32104E822C88ECD300705211 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		32104E8A2C89BA3100705211 /* ListDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListDetailsView.swift; sourceTree = "<group>"; };
 		32104E8C2C89BD6300705211 /* ListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowView.swift; sourceTree = "<group>"; };
-		32104E8F2C89D74300705211 /* ItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemModel.swift; sourceTree = "<group>"; };
+		32104E8F2C89D74300705211 /* TaskModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskModel.swift; sourceTree = "<group>"; };
 		32194F1A2CBEFA6A00EA0683 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		32194F1F2CBEFB2200EA0683 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		3243D9632C9A13D60079910C /* AddNewListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewListView.swift; sourceTree = "<group>"; };
@@ -112,7 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				32D139C72CA56EAE00521C69 /* ThemeModel.swift */,
-				32104E8F2C89D74300705211 /* ItemModel.swift */,
+				32104E8F2C89D74300705211 /* TaskModel.swift */,
 				32E911DB2C923C2300157A08 /* ListModel.swift */,
 			);
 			path = Models;
@@ -245,7 +245,7 @@
 				32BF063C2CA2D610001C2114 /* SettingsView.swift in Sources */,
 				32C466BC2C8E4A3D00C2AD1E /* AddNewItemView.swift in Sources */,
 				32D139C82CA56EB200521C69 /* ThemeModel.swift in Sources */,
-				32104E902C89D74300705211 /* ItemModel.swift in Sources */,
+				32104E902C89D74300705211 /* TaskModel.swift in Sources */,
 				5F9F721D2CDA2EDB00FFAE36 /* DatabaseManager.swift in Sources */,
 				32A213712C90DF370094923E /* ListsView.swift in Sources */,
 				32194F202CBEFB2200EA0683 /* Model.xcdatamodeld in Sources */,

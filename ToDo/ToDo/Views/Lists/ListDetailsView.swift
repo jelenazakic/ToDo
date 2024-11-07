@@ -14,19 +14,19 @@ struct ListDetailsView: View {
     
     @State var isPresentedNewItemSheet: Bool = false
     @State var isCompleted: Bool = false
-    @State var items: [ItemModel] = []
+    @State var listTasks: [TaskModel] = []
     @State var isAnimatedPlusButton = false
     @State var editingItemId: UUID? = nil
     @FocusState var focusItemId: UUID?
     
-    var databaseManager = DatabaseManager.shared
     let navigationTitle: String
+    let listId: UUID
     
     //  MARK: - Lifecycle
     
     var body: some View {
         List {
-            ForEach($items) { $item in
+            ForEach($listTasks) { $item in
                 if( item.id == editingItemId){
                     taskTextField(for: $item)
                 }
@@ -54,7 +54,7 @@ struct ListDetailsView: View {
     
     //  MARK: - Views
     
-    func taskRowView(for item: ItemModel) -> some View {
+    func taskRowView(for item: TaskModel) -> some View {
         ListRowView(item: item)
             .onTapGesture {
                 markAsCompleted(item: item)
@@ -67,7 +67,7 @@ struct ListDetailsView: View {
             }
     }
     
-    func taskTextField(for item: Binding<ItemModel>) -> some View {
+    func taskTextField(for item: Binding<TaskModel>) -> some View {
         TextField("", text: item.title, onCommit: {
             updateTask(item.wrappedValue)
             editingItemId = nil
@@ -95,8 +95,8 @@ struct ListDetailsView: View {
     var addNewItemSheetView: some View {
         AddNewItemView(
             isPresented: $isPresentedNewItemSheet,
-            items: $items,
-            listId: UUID()
+            listTasks: $listTasks,
+            listId: listId
         )
         .presentationDetents([.medium])
     }
@@ -104,25 +104,26 @@ struct ListDetailsView: View {
     //  MARK: - Utility
     
     func loadTask() {
-        items = databaseManager.fetchAllTasks(forListId: UUID()) ?? []
-        
+        if let listTasks = DatabaseManager.shared.fetchAllTasks(forListId: listId) {
+            self.listTasks = listTasks
+        }
     }
     
-    func updateTask(_ item: ItemModel) {
-        databaseManager.updateTask(task: item)
+    func updateTask(_ item: TaskModel) {
+        DatabaseManager.shared.updateTask(task: item)
         loadTask()
         
     }
     
     func deleteItem (at offsets : IndexSet){
-        offsets.forEach {index in
-            let item = items[index]
-            databaseManager.deleteTask(id: item.id)
-            items.remove(at: index)
+        offsets.forEach { index in
+            let item = listTasks[index]
+            DatabaseManager.shared.deleteTask(id: item.id)
+            listTasks.remove(at: index)
         }
     }
     
-    func markAsCompleted(item: ItemModel) {
+    func markAsCompleted(item: TaskModel) {
         var updatedTask = item
         updatedTask.isCompleted.toggle()
         updateTask(updatedTask)
@@ -131,8 +132,10 @@ struct ListDetailsView: View {
 #Preview {
     NavigationView{
         
-        ListDetailsView(navigationTitle: "Title")
-        // .environmentObject(ThemeManager())
+        ListDetailsView(
+            navigationTitle: "Title",
+            listId: UUID()
+        )
     }
 }
 

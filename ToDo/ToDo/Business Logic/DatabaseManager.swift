@@ -76,7 +76,6 @@ class DatabaseManager {
         do {
             try dbQueue.read { db in
                 lists = try ListModel.fetchAll(db)
-                
             }
         } catch {
             print("Failed to fetch lists: \(error)")
@@ -84,20 +83,6 @@ class DatabaseManager {
             
         }
         return lists
-    }
-    
-    func fetchAllTaskInList(forListId listId: UUID) -> [ItemModel] {
-        var tasks: [ItemModel] = []
-        do {
-            try dbQueue?.read { db in
-                tasks = try ItemModel.fetchAll(db,sql: "SELECT * FROM item WHERE listId = ?",
-                                               arguments: [listId.uuidString])
-            }
-        } catch {
-            print("Failed to fetch tasks: \(error)")
-            
-        }
-        return tasks
     }
     
     func updateList(list: ListModel) {
@@ -130,7 +115,7 @@ class DatabaseManager {
     
     func insertTask(title: String, listId: UUID) -> UUID? {
         let taskId = UUID()
-        let task = ItemModel(
+        let task = TaskModel(
             id: UUID(),
             title: title,
             isCompleted: false,
@@ -150,11 +135,14 @@ class DatabaseManager {
         }
     }
     
-    func fetchAllTasks(forListId listId: UUID) -> [ItemModel]? {
-        
+    func fetchAllTasks(forListId listId: UUID) -> [TaskModel]? {
         do {
             let tasks = try dbQueue.read { db in
-                try ItemModel.fetchAll(db, sql: "SELECT * FROM task WHERE listId = ?", arguments: [listId])
+                try TaskModel.fetchAll(
+                    db,
+                    sql: "SELECT * FROM tasks WHERE listId = ?",
+                    arguments: [listId]
+                )
             }
             return tasks
         } catch {
@@ -163,7 +151,7 @@ class DatabaseManager {
         }
     }
     
-    func updateTask(task: ItemModel) {
+    func updateTask(task: TaskModel) {
         do {
             try dbQueue.write { db in
                 try task.update(db)
@@ -177,7 +165,7 @@ class DatabaseManager {
     func deleteTask(id: UUID) {
         do {
             try dbQueue.write { db in
-                try ItemModel.deleteOne(db, key: id.uuidString)
+                try TaskModel.deleteOne(db, key: id.uuidString)
                 print("Task deleted:")
             }
         } catch {

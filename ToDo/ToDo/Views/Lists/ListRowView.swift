@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListRowView: View {
     
-    let item: ItemModel
+    let item: TaskModel
     @AppStorage("appTheme") private var appTheme: String = "dark"
     
     var body: some View {
@@ -35,8 +35,8 @@ struct ListRowView: View {
     
     struct ListRowView_Previews: PreviewProvider{
         
-        static var item1 = ItemModel(title: "Prvi", isCompleted: true,listId: UUID())
-        static var item2 = ItemModel(title: "Drugi", isCompleted: false, listId: UUID())
+        static var item1 = TaskModel(title: "Prvi", isCompleted: true,listId: UUID())
+        static var item2 = TaskModel(title: "Drugi", isCompleted: false, listId: UUID())
         static var previews: some View{
             
             Group{
@@ -49,7 +49,7 @@ struct ListRowView: View {
     }
 }
 #Preview {
-    ListRowView(item: ItemModel(title: "Sample 1", isCompleted: false,listId: UUID()))
+    ListRowView(item: TaskModel(title: "Sample 1", isCompleted: false,listId: UUID()))
     
 }
 
