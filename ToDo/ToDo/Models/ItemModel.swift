@@ -10,11 +10,18 @@ import Combine
 
 
 struct ItemModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
+    
+    //  MARK: - Properties
+    
+    static let databaseTableName = "tasks"
+    
     var id: UUID
     var title: String
     var isCompleted: Bool
     var listId: UUID
 
+    //  MARK: - Lifecycle
+    
     init(
         id: UUID = UUID(),
         title: String,
@@ -27,9 +34,6 @@ struct ItemModel: Codable,Identifiable, FetchableRecord, PersistableRecord {
         self.listId = listId
     }
 
-    static var databaseTableName: String {
-        return "task"
-    }
 }
 
 

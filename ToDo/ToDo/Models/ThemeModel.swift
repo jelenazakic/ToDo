@@ -16,12 +16,15 @@ struct Theme {
 }
 
 class ThemeManager: ObservableObject {
+    
     //  MARK: - Properties
+    
     @Published var currentTheme: Theme
     
-    init(){
+    //  MARK: - Lifecycle
+    
+    init() {
         self.currentTheme = Theme (
-            
             backgroundColor: Color.white,
             textColor: Color.black,
             accentColor: Color.blue,
@@ -29,7 +32,6 @@ class ThemeManager: ObservableObject {
         )
     }
     
-    //  MARK: - Lifecycle
     func switchTheme ( to theme: Theme){
         currentTheme = theme
     }

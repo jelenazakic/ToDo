@@ -38,11 +38,13 @@ class DatabaseManager {
         }
         
     }
-    //  MARK: - List
+    
+    //  MARK: - Lists
+    
     private func createListsTable() {
         do {
             try dbQueue?.write { db in
-                try db.create(table: "list", ifNotExists: true) { t in
+                try db.create(table: "lists", ifNotExists: true) { t in
                     t.column("id",.text).primaryKey().notNull()
                     t.column("name", .text).notNull()
                 }
@@ -186,7 +188,7 @@ class DatabaseManager {
     private func createTasksTable() {
         do {
             try dbQueue?.write { db in
-                try db.create(table: "task", ifNotExists: true) { t in
+                try db.create(table: "tasks", ifNotExists: true) { t in
                     t.column("id", .text)
                         .primaryKey()
                         .notNull()
@@ -196,7 +198,7 @@ class DatabaseManager {
                         .defaults(to: false)
                     t.column("listId", .text)
                         .notNull()
-                        .references("list",onDelete: .cascade)
+                        .references("lists",onDelete: .cascade)
                 }
             }
             print("Task table created successfully.")

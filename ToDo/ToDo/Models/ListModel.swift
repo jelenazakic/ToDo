@@ -12,6 +12,8 @@ struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
    
     //  MARK: - Properties
     
+    static let databaseTableName = "lists"
+    
     let id: UUID
     let name: String
   //  var tasks: [ItemModel] = []
@@ -26,8 +28,6 @@ struct ListModel: Identifiable, Codable, FetchableRecord, PersistableRecord {
         self.name = name
       
     }
-    static var databaseTableName: String {
-        return "list"
-    }
+    
 }
 
