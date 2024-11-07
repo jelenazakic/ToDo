@@ -86,7 +86,7 @@ class DatabaseManager {
         return lists
     }
     
-    func fetchAllTaskInList (forListId listId: UUID) -> [ItemModel] {
+    func fetchAllTaskInList(forListId listId: UUID) -> [ItemModel] {
         var tasks: [ItemModel] = []
         do {
             try dbQueue?.read { db in

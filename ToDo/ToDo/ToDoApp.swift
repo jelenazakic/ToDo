@@ -18,7 +18,7 @@ struct ToDoApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView{
-                ToDoHomePage()
+                ListsView()
                     .preferredColorScheme(colorScheme)
             }
             

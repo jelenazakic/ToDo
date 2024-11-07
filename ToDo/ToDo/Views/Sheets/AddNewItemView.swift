@@ -12,8 +12,10 @@ struct AddNewItemView: View {
     //  MARK: - Properties
     
     @Binding var isPresented:Bool
-    @Binding var newItem: String
     @Binding var items: [ItemModel]
+    @State var newItem: String = ""
+    
+    let listId: UUID
     
     //  MARK: - Lifecycle
     
@@ -23,15 +25,11 @@ struct AddNewItemView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding(20)
             
-            Button("Save"){
-                if let listId = DatabaseManager.shared.insertList(title: "New list"){
-                    DatabaseManager.shared.insertTask(title: newItem, listId: listId)
-                    items = DatabaseManager.shared.fetchAllTaskInList(forListId: listId)
-                    isPresented = false
-                }
-                else {
-                    print("Failed to create list and add tasks.")
-                }
+            Button("Save") {
+                DatabaseManager.shared.insertTask(title: newItem, listId: listId)
+                items = DatabaseManager.shared.fetchAllTaskInList(forListId: listId)
+                isPresented = false
+
                 //items.append(
                 //  ItemModel(title: newItem,
                 //           isCompleted: false))
@@ -51,7 +49,6 @@ struct AddNewItemView: View {
 #Preview {
     AddNewItemView(
         isPresented: .constant(false),
-        newItem: .constant(""),
         items: .constant([
             ItemModel(
                 title: "Sample 1",
@@ -83,6 +80,7 @@ struct AddNewItemView: View {
                 isCompleted: false,
                 listId: UUID()
             )
-        ])
+        ]),
+        listId: UUID()
     )
 }

@@ -1,5 +1,5 @@
 //
-//  ToDoHomePage.swift
+//  ListsView.swift
 //  ToDo
 //
 //  Created by Jelena Zakic on 10.9.24..
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDoHomePage: View {
+struct ListsView: View {
     
     //  MARK: - Properties
     
@@ -43,7 +43,7 @@ struct ToDoHomePage: View {
             NavigationStack {
                 List {
                     ForEach(filterLists) { list in
-                        NavigationLink(destination: MainListView(
+                        NavigationLink(destination: ListDetailsView(
                             // items: list.tasks,
                             navigationTitle: list.name)
                         ) {
@@ -167,5 +167,5 @@ struct ToDoHomePage: View {
 
 
 #Preview {
-    ToDoHomePage()
+    ListsView()
 }
