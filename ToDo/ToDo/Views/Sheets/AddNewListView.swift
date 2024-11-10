@@ -7,16 +7,18 @@ struct AddNewListView: View {
     @Binding var newNameList: String
     @Binding var lists: [ListModel]
     @Binding var isPresented: Bool
+    @Environment(\.presentationMode) var presentationMode
     var listId: UUID
     
     // MARK: - Lifecycle
     var body: some View {
         
-        VStack {
-            newListTextField
-            
-            saveNewListButton
-        }
+            VStack {
+                newListTextField
+                
+                saveNewListButton
+            }
+        
         .padding()
     }
     
@@ -26,9 +28,12 @@ struct AddNewListView: View {
             .textFieldStyle(RoundedBorderTextFieldStyle())
             .padding(20)
             .foregroundStyle(Color.gray)
+            .autocorrectionDisabled()
+       
     }
     
     private var saveNewListButton: some View {
+        
         Button(action: onSaveNewListButtonTap) {
             Text("Save")
                 .frame(width: 80, height: 1)
@@ -45,10 +50,14 @@ struct AddNewListView: View {
     private func onSaveNewListButtonTap() {
         if let newListId = DatabaseManager.shared.insertList(title: newNameList) {
             lists = DatabaseManager.shared.fetchAllLists()
-            isPresented = false
+            newNameList = ""
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                            to: nil,
+                                            from: nil,
+                                            for: nil)
+            presentationMode.wrappedValue.dismiss()
+            //isPresented = false
         }
-        //  lists.append(newList)
-        // newNameList = ""
     }
     
     struct GrowingButton: ButtonStyle {

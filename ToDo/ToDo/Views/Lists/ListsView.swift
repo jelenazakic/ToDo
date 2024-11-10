@@ -159,10 +159,7 @@ struct ListsView: View {
     func countAllTask(items: [TaskModel]) -> Int {
         return items.count
     }
-    
-    //   private func deleteList(at offsets: IndexSet) {
-    //       lists.remove(atOffsets: offsets) // Removes items from the lists array
-    //  }
+
 }
 
 

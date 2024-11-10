@@ -49,9 +49,9 @@ class DatabaseManager {
                     t.column("name", .text).notNull()
                 }
             }
-            print("List table created successfully.")
+            print("Lists table created successfully.")
         } catch {
-            print("Failed to create list table: \(error)")
+            print("Failed to create lists table: \(error)")
         }
     }
     
@@ -101,7 +101,7 @@ class DatabaseManager {
     func deleteList(id: UUID) {
         do {
             try dbQueue.write { db in
-                try ListModel.deleteOne(db, key: id.uuidString)
+                try ListModel.deleteOne(db, key: id)
                 print("List deleted:")
                 
             }
@@ -165,7 +165,7 @@ class DatabaseManager {
     func deleteTask(id: UUID) {
         do {
             try dbQueue.write { db in
-                try TaskModel.deleteOne(db, key: id.uuidString)
+                try TaskModel.deleteOne(db, key: id)
                 print("Task deleted:")
             }
         } catch {
@@ -189,9 +189,9 @@ class DatabaseManager {
                         .references("lists",onDelete: .cascade)
                 }
             }
-            print("Task table created successfully.")
+            print("Tasks table created successfully.")
         } catch {
-            print("Failed to create task table: \(error)")
+            print("Failed to create tasks table: \(error)")
         }
     }
 }

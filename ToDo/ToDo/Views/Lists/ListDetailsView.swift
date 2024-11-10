@@ -40,7 +40,9 @@ struct ListDetailsView: View {
         .listStyle(PlainListStyle())
         .navigationTitle(navigationTitle)
         .sheet(isPresented: $isPresentedNewItemSheet) {
+            hideKeyboard() } content: {
             addNewItemSheetView
+                    .interactiveDismissDisabled()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
